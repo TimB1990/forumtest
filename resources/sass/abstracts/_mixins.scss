@@ -1,0 +1,20 @@
+// Small devices
+@mixin sm {
+    @media (min-width: #{$screen-sm-min}) {
+        @content;
+    }
+}
+
+// medium devices
+@mixin md {
+    @media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation: portrait) {
+        @content;
+    }
+}
+
+// Large devices
+@mixin lg {
+    @media (min-width: #{$screen-lg-min}) and (orientation: landscape) {
+        @content;
+    }
+}

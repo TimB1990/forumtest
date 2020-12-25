@@ -1,0 +1,42 @@
+## installation
+
+npm i -D laravel-mix@next vue@next @vue/compiler-sfc vue-loader@next
+
+npm i
+
+npm install -g webpack webpack-cli
+
+## before doing that try to remove the following dependencies from package.json which some of them are added by php artisan ui vue :
+
+    vue
+    vue-template-compiler
+    laravel-mix
+
+
+## in the package.json change the scripts to the following ones:
+
+"scripts": {
+    "development": "mix",
+    "watch": "mix watch",
+    "watch-poll": "mix watch -- --watch-options-poll=1000",
+    "hot": "mix watch --hot",
+    "production": "mix --production"
+}
+
+## webpack.mix.js should contain :
+
+const mix = require('laravel-mix');
+
+mix.options({ processCssUrls: false });
+mix.js('resources/js/app.js', 'public/js').vue();
+mix.sass('resources/sass/app.scss', 'public/css')
+mix.browserSync('127.0.0.1:8000');
+
+## The minimum content of resources/js/app.js
+
+import { createApp } from 'vue';
+import App from './components/App.vue'
+createApp(App).mount("#app")
+
+
+
