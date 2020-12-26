@@ -15,6 +15,12 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->contrained()->index();
+            $table->foreignId('thread_id')->constrained()->index();
+            $table->foreignId('forum_id')->constrained();
+            $table->unsignedBigInteger('parent_id')->index();
+            $table->integer('children')->index();
+            $table->text('message');
             $table->timestamps();
         });
     }
