@@ -7,11 +7,12 @@ use App\Models\Post;
 use App\Models\Thread;
 use App\Models\Moderator;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Forum extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $guarded = [];
 
@@ -20,7 +21,7 @@ class Forum extends Model
     }
 
     public function moderators(){
-        return $this->hasMany(Moderator::class);
+        return $this->belongsTo(Moderator::class);
     }
 
     public function posts(){

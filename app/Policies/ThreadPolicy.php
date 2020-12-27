@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\User;
 use App\Models\Thread;
 use Illuminate\Auth\Access\Response;
+use App\Globals\AllowModerationHandler;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ThreadPolicy
@@ -41,13 +42,7 @@ class ThreadPolicy
     }
 
     private function allowMaintenance(User $user, Thread $thread){
-        if($user->role == 'admin') return true;
-
-        $moderators = $thread->forum->moderators;
-        if($user->role == 'moderator' && count($moderators) > 0 ){
-            $moderators->map(function($mod) use($user){
-                return $mod->id == $user->id;
-            });
-        }
+        $handler = new AllowModerationHandler($user, $thread);
+        return $handler->check();
     }
 }

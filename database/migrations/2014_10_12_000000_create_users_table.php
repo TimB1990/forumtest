@@ -24,15 +24,11 @@ class CreateUsersTable extends Migration
             $table->integer('rank');
             $table->boolean('active');
             $table->rememberToken();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('users');

@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Globals\AllowModerationHandler;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
@@ -48,13 +49,7 @@ class PostPolicy
     }
 
     private function allowMaintenance(User $user, Post $post){
-        if($user->role == 'admin') return true;
-
-        $moderators = $post->forum->moderators;
-        if($user->role == 'moderator' && count($moderators) > 0 ){
-            $moderators->map(function($mod) use($user){
-                return $mod->id == $user->id;
-            });
-        }
+        $handler = new AllowModerationHandler($user, $post);
+        return $handler->check();
     }
 }

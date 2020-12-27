@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class PostController extends Controller
+class UserController extends Controller
 {
     public function index()
     {
@@ -18,22 +18,22 @@ class PostController extends Controller
     }
 
 
-    public function show(Post $post)
+    public function show(User $user)
     {
         //
     }
 
-    public function update(Request $request, Post $post)
+    public function update(Request $request, User $user)
     {
         //
     }
 
-    public function delete(Post $post)
+    public function delete(User $user)
     {
         //
     }
 
-    public function destroy(Post $post)
+    public function destroy(User $user)
     {
         //
     }

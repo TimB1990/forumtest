@@ -21,6 +21,7 @@ class CreatePostsTable extends Migration
             $table->unsignedBigInteger('parent_id')->index();
             $table->integer('children')->index();
             $table->text('message');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

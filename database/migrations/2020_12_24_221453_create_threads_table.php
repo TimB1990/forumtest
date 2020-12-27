@@ -18,6 +18,7 @@ class CreateThreadsTable extends Migration
             $table->foreignId('forum_id')->constrained();
             $table->foreignId('user_id')->contrained();
             $table->string('subject');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

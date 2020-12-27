@@ -17,6 +17,7 @@ class CreateModeratorsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->contrained();
             $table->foreignId('forum_id')->contrained();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
