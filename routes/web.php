@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\PostController;
@@ -15,6 +16,7 @@ Route::get('/', function () {
 // user routes - public
 Route::get('auth/login', [UserController::class, 'login']);
 Route::post('auth/register', [UserController::class, 'register']);
+Route::post('auth/logout', [UserController::class, 'logout']);
 
 // model routes - index - public
 Route::get('api/forums', [ForumController::class, 'index']);
@@ -30,6 +32,13 @@ Route::get('api/threads/:id', [ThreadController::class, 'show']);
 Route::get('api/users/:id', [UserController::class, 'show']);
 
 Route::middleware('auth:sanctum')->group(function(){
+
+    // api - get user requests
+    Route::get('api/user', function(Request $request){
+        $user = $request->user();
+        return response()->json($user);
+    });
+
 
     // api - post requests
     Route::post('api/forums', [ForumController::class, 'store']);

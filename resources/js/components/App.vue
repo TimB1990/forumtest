@@ -1,11 +1,21 @@
 <template>
    <div class="container">
-      <header class="container__head">This is a header</header>
+      <header class="container__head">
+         <div class="container__head--header">
+            This is a header {{ message }}
+         </div>
+         <div class="container__head--login">
+            <login />
+         </div>
+      </header>
       <nav class="container__breadcrumbs">... > ... > ... </nav>
       <main class="container__main">
 
          <!-- main cols -->
-         <div class="forums">forums</div>
+         <div class="forums">
+            forums
+
+         </div>
          <div class="forum-stats">Statestieken - forum</div>
          <div class="member-stats">Statistieken - leden</div>
 
@@ -32,7 +42,9 @@
 </template>
 
 <script>
+import Login from './Login'
 export default {
+   components: { Login },
    data() {
       return {
          message: "I am saying Hello",
