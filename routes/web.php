@@ -14,7 +14,7 @@ Route::get('/', function () {
 });
 
 // user routes - public
-Route::get('auth/login', [UserController::class, 'login']);
+Route::post('auth/login', [UserController::class, 'login']);
 Route::post('auth/register', [UserController::class, 'register']);
 Route::post('auth/logout', [UserController::class, 'logout']);
 
@@ -34,11 +34,7 @@ Route::get('api/users/:id', [UserController::class, 'show']);
 Route::middleware('auth:sanctum')->group(function(){
 
     // api - get user requests
-    Route::get('api/user', function(Request $request){
-        $user = $request->user();
-        return response()->json($user);
-    });
-
+    Route::get('api/user', [User::class, 'showCurrent']);
 
     // api - post requests
     Route::post('api/forums', [ForumController::class, 'store']);

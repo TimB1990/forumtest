@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { isLoggedIn, logIn, getToken, setToken } from "../utils"
 
 export default {
     namespaced: true,
@@ -31,23 +32,41 @@ export default {
 
     actions: {
         // { dispatch } is calling other action - { commit } is calling mutator
+        async loadUser({ commit, dispatch}){
+            if(isLoggedIn){
+                const token = getToken();
+            }
+
+        },
+
         async login({ dispatch }, credentials){
             await axios.get('/sanctum/csrf-cookie');
-            await axios.post('/auth/login', credentials);
 
-            return dispatch('me');
+            const { data } = await axios.post('/auth/login', credentials);
+
+            console.log(data)
+
+            return dispatch('me', data.token);
         },
         
-        async logout({ dispatch }){
-            await axios.post('/auth/logout');
-            return dispatch('me');
+        async logout({ dispatch }, userId){
+            console.log(userId);
+            await axios.post('/auth/logout', userId);
+            return dispatch('me', null);
         },
 
-        async me({ commit }){
+        async me({ commit }, token){
+            if(!token){
+                commit('SET_AUTHENTICATED', false)
+                commit('SET_USER', null)
+                return
+            }
+
             try{
-                let response = await axios.get('/api/user')
+                let { data } = await axios.get('/api/user', { headers: { 'Authorization' : `Bearer ${token}`}})
+                data.token = token
                 commit('SET_AUTHENTICATED', true)
-                commit('SET_USER', response.data)
+                commit('SET_USER', data)
             } 
             catch(err){
                 console.log(err)

@@ -14,7 +14,6 @@
          <!-- main cols -->
          <div class="forums">
             forums
-
          </div>
          <div class="forum-stats">Statestieken - forum</div>
          <div class="member-stats">Statistieken - leden</div>

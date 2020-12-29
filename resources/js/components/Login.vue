@@ -1,15 +1,15 @@
 <template>
   <div>
       <form v-if="!authenticated" action="#" @submit.prevent="submit">
-        <div>
+        <div class="field-container">
           <label for="email">Email address</label>
           <input type="text" name="email" id="email" v-model="credentials.email">
         </div>
-        <div>
+        <div class="field-container">
           <label for="password">Password</label>
-          <input type="text" name="password" id="password" v-model="credentials.password">
+          <input type="password" name="password" id="password" v-model="credentials.password">
         </div>
-        <div>
+        <div class="field-container">
           <button type="submit">
             Sign in
           </button>
@@ -36,19 +36,21 @@ export default {
       password: null
     })
 
+    const user = computed(() => store.getters['auth/user']);
+    const authenticated = computed(() => store.getters['auth/authenticated']);
+
     const submit = async() => {
       await store.dispatch('auth/login', credentials.value)
     }
 
     const logout = async() => {
-      await store.dispatch('auth/logout')
+      user ? await store.dispatch('auth/logout', {userId: user.value.id}) : 'No user is logged in'
     }
 
     return{
 
-      // access auth getters
-      authenticated: computed(() => store.getters['auth/authenticated']),
-      user: computed(() => store.getters['auth/user']),
+      authenticated,
+      user,
       credentials,
       submit,
       logout
@@ -57,3 +59,10 @@ export default {
 }
 
 </script>
+
+<style>
+.field-container{
+    display: flex;
+    flex-direction: column;
+}
+</style>
