@@ -16294,6 +16294,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
+              // auto login if token present is localStorage - by utils.getToken()
               token = (0,_utils__WEBPACK_IMPORTED_MODULE_3__.getToken)();
 
               if (!token) {
