@@ -16236,18 +16236,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var _Login__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Login */ "./resources/js/components/Login.vue");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.mjs");
+
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     Login: _Login__WEBPACK_IMPORTED_MODULE_0__.default
   },
-  data: function data() {
-    return {
-      message: "I am saying Hello"
-    };
-  },
-  mounted: function mounted() {
-    console.log("Example Component Mounted");
+  setup: function setup() {
+    var store = (0,vuex__WEBPACK_IMPORTED_MODULE_2__.useStore)();
   }
 });
 
@@ -16269,7 +16268,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.mjs");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.mjs");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils */ "./resources/js/utils.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -16279,14 +16279,38 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Login",
   setup: function setup() {
-    var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.useStore)();
+    var store = (0,vuex__WEBPACK_IMPORTED_MODULE_4__.useStore)();
     var credentials = (0,vue__WEBPACK_IMPORTED_MODULE_2__.ref)({
       email: null,
       password: null
     });
+    (0,vue__WEBPACK_IMPORTED_MODULE_2__.onBeforeMount)( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      var token;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              token = (0,_utils__WEBPACK_IMPORTED_MODULE_3__.getToken)();
+
+              if (!token) {
+                _context.next = 4;
+                break;
+              }
+
+              _context.next = 4;
+              return store.dispatch('auth/me', token);
+
+            case 4:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    })));
     var user = (0,vue__WEBPACK_IMPORTED_MODULE_2__.computed)(function () {
       return store.getters['auth/user'];
     });
@@ -16295,51 +16319,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     });
 
     var submit = /*#__PURE__*/function () {
-      var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _context.next = 2;
-                return store.dispatch('auth/login', credentials.value);
-
-              case 2:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }));
-
-      return function submit() {
-        return _ref.apply(this, arguments);
-      };
-    }();
-
-    var logout = /*#__PURE__*/function () {
       var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                if (!user) {
-                  _context2.next = 5;
-                  break;
-                }
+                _context2.next = 2;
+                return store.dispatch('auth/login', credentials.value);
 
-                _context2.next = 3;
-                return store.dispatch('auth/logout', {
-                  userId: user.value.id
-                });
-
-              case 3:
-                _context2.next = 6;
-                break;
-
-              case 5:
-                'No user is logged in';
-
-              case 6:
+              case 2:
               case "end":
                 return _context2.stop();
             }
@@ -16347,15 +16335,44 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee2);
       }));
 
-      return function logout() {
+      return function submit() {
         return _ref2.apply(this, arguments);
       };
     }();
 
+    var logout = /*#__PURE__*/function () {
+      var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                if (!user) {
+                  _context3.next = 3;
+                  break;
+                }
+
+                _context3.next = 3;
+                return store.dispatch('auth/logout', {
+                  userId: user.value.id
+                });
+
+              case 3:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }));
+
+      return function logout() {
+        return _ref3.apply(this, arguments);
+      };
+    }();
+
     return {
-      authenticated: authenticated,
-      user: user,
       credentials: credentials,
+      user: user,
+      authenticated: authenticated,
       submit: submit,
       logout: logout
     };
@@ -16395,7 +16412,7 @@ var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVN
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_login = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("login");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("header", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_3, " This is a header " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.message), 1
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("header", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.user), 1
   /* TEXT */
   ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_login)])]), _hoisted_5]);
 }
@@ -16601,20 +16618,32 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   actions: {
     // { dispatch } is calling other action - { commit } is calling mutator
-    loadUser: function loadUser(_ref) {
+    login: function login(_ref, credentials) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var commit, dispatch, token;
+        var dispatch, _yield$axios$post, data, token;
+
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                commit = _ref.commit, dispatch = _ref.dispatch;
+                dispatch = _ref.dispatch;
+                _context.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().get('/sanctum/csrf-cookie');
 
-                if (_utils__WEBPACK_IMPORTED_MODULE_2__.isLoggedIn) {
-                  token = (0,_utils__WEBPACK_IMPORTED_MODULE_2__.getToken)();
-                }
+              case 3:
+                _context.next = 5;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().post('/auth/login', credentials);
 
-              case 2:
+              case 5:
+                _yield$axios$post = _context.sent;
+                data = _yield$axios$post.data;
+                console.log(data);
+                token = data.token;
+                (0,_utils__WEBPACK_IMPORTED_MODULE_2__.logIn)();
+                (0,_utils__WEBPACK_IMPORTED_MODULE_2__.setToken)(token);
+                return _context.abrupt("return", dispatch('me', token));
+
+              case 12:
               case "end":
                 return _context.stop();
             }
@@ -16622,29 +16651,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee);
       }))();
     },
-    login: function login(_ref2, credentials) {
+    logout: function logout(_ref2, userId) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
-        var dispatch, _yield$axios$post, data;
-
+        var dispatch;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 dispatch = _ref2.dispatch;
-                _context2.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default().get('/sanctum/csrf-cookie');
+                console.log(userId);
+                _context2.next = 4;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().post('/auth/logout', userId);
 
-              case 3:
-                _context2.next = 5;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default().post('/auth/login', credentials);
+              case 4:
+                (0,_utils__WEBPACK_IMPORTED_MODULE_2__.clearStorage)();
+                return _context2.abrupt("return", dispatch('me', null));
 
-              case 5:
-                _yield$axios$post = _context2.sent;
-                data = _yield$axios$post.data;
-                console.log(data);
-                return _context2.abrupt("return", dispatch('me', data.token));
-
-              case 9:
+              case 6:
               case "end":
                 return _context2.stop();
             }
@@ -16652,79 +16675,65 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee2);
       }))();
     },
-    logout: function logout(_ref3, userId) {
+    me: function me(_ref3, token) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
-        var dispatch;
+        var commit, _yield$axios$get, data;
+
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                dispatch = _ref3.dispatch;
-                console.log(userId);
-                _context3.next = 4;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default().post('/auth/logout', userId);
-
-              case 4:
-                return _context3.abrupt("return", dispatch('me', null));
-
-              case 5:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3);
-      }))();
-    },
-    me: function me(_ref4, token) {
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
-        var commit, _yield$axios$get, data;
-
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
-          while (1) {
-            switch (_context4.prev = _context4.next) {
-              case 0:
-                commit = _ref4.commit;
+                commit = _ref3.commit;
 
                 if (token) {
-                  _context4.next = 5;
+                  _context3.next = 5;
                   break;
                 }
 
                 commit('SET_AUTHENTICATED', false);
                 commit('SET_USER', null);
-                return _context4.abrupt("return");
+                return _context3.abrupt("return");
 
               case 5:
-                _context4.prev = 5;
-                _context4.next = 8;
+                if (!_utils__WEBPACK_IMPORTED_MODULE_2__.isLoggedIn) {
+                  _context3.next = 22;
+                  break;
+                }
+
+                _context3.prev = 6;
+                _context3.next = 9;
                 return axios__WEBPACK_IMPORTED_MODULE_1___default().get('/api/user', {
                   headers: {
                     'Authorization': "Bearer ".concat(token)
                   }
                 });
 
-              case 8:
-                _yield$axios$get = _context4.sent;
+              case 9:
+                _yield$axios$get = _context3.sent;
                 data = _yield$axios$get.data;
                 data.token = token;
                 commit('SET_AUTHENTICATED', true);
                 commit('SET_USER', data);
-                _context4.next = 20;
+                console.log('user: ', data);
+                _context3.next = 22;
                 break;
 
-              case 15:
-                _context4.prev = 15;
-                _context4.t0 = _context4["catch"](5);
-                console.log(_context4.t0);
+              case 17:
+                _context3.prev = 17;
+                _context3.t0 = _context3["catch"](6);
+                console.log(_context3.t0);
                 commit('SET_AUTHENTICATED', false);
                 commit('SET_USER', null);
 
-              case 20:
+              case 22:
+                return _context3.abrupt("return");
+
+              case 23:
               case "end":
-                return _context4.stop();
+                return _context3.stop();
             }
           }
-        }, _callee4, null, [[5, 15]]);
+        }, _callee3, null, [[6, 17]]);
       }))();
     }
   }
@@ -16767,7 +16776,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "isLoggedIn": () => /* binding */ isLoggedIn,
 /* harmony export */   "logIn": () => /* binding */ logIn,
 /* harmony export */   "setToken": () => /* binding */ setToken,
-/* harmony export */   "getToken": () => /* binding */ getToken
+/* harmony export */   "getToken": () => /* binding */ getToken,
+/* harmony export */   "clearStorage": () => /* binding */ clearStorage
 /* harmony export */ });
 function isLoggedIn() {
   return localStorage.getItem("isLoggedIn") == "true";
@@ -16780,6 +16790,9 @@ function setToken(token) {
 }
 function getToken() {
   return localStorage.getItem("token");
+}
+function clearStorage() {
+  localStorage.clear();
 }
 
 /***/ }),

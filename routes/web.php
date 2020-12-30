@@ -34,7 +34,7 @@ Route::get('api/users/:id', [UserController::class, 'show']);
 Route::middleware('auth:sanctum')->group(function(){
 
     // api - get user requests
-    Route::get('api/user', [User::class, 'showCurrent']);
+    Route::get('api/user/', [UserController::class, 'show']);
 
     // api - post requests
     Route::post('api/forums', [ForumController::class, 'store']);

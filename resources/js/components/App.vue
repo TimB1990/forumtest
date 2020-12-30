@@ -2,7 +2,7 @@
    <div class="container">
       <header class="container__head">
          <div class="container__head--header">
-            This is a header {{ message }}
+            {{ user }}
          </div>
          <div class="container__head--login">
             <login />
@@ -42,16 +42,13 @@
 
 <script>
 import Login from './Login'
+import { onBeforeMount, computed } from 'vue'
+import { useStore } from 'vuex'
+
 export default {
    components: { Login },
-   data() {
-      return {
-         message: "I am saying Hello",
-      };
-   },
-
-   mounted() {
-      console.log("Example Component Mounted");
-   },
-};
+   setup(){
+      const store = useStore();
+   }
+}
 </script>

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { isLoggedIn, logIn, getToken, setToken } from "../utils"
+import { isLoggedIn, logIn, setToken, clearStorage } from "../utils"
 
 export default {
     namespaced: true,
@@ -32,12 +32,6 @@ export default {
 
     actions: {
         // { dispatch } is calling other action - { commit } is calling mutator
-        async loadUser({ commit, dispatch}){
-            if(isLoggedIn){
-                const token = getToken();
-            }
-
-        },
 
         async login({ dispatch }, credentials){
             await axios.get('/sanctum/csrf-cookie');
@@ -46,33 +40,45 @@ export default {
 
             console.log(data)
 
-            return dispatch('me', data.token);
+            const token = data.token
+
+            logIn()
+            setToken(token)
+
+            return dispatch('me', token);
         },
         
         async logout({ dispatch }, userId){
             console.log(userId);
             await axios.post('/auth/logout', userId);
+            clearStorage();
             return dispatch('me', null);
         },
 
         async me({ commit }, token){
+            
             if(!token){
                 commit('SET_AUTHENTICATED', false)
                 commit('SET_USER', null)
                 return
             }
 
-            try{
-                let { data } = await axios.get('/api/user', { headers: { 'Authorization' : `Bearer ${token}`}})
-                data.token = token
-                commit('SET_AUTHENTICATED', true)
-                commit('SET_USER', data)
-            } 
-            catch(err){
-                console.log(err)
-                commit('SET_AUTHENTICATED', false)
-                commit('SET_USER', null)
+            if(isLoggedIn){
+                try{
+                    let { data } = await axios.get('/api/user', { headers: { 'Authorization' : `Bearer ${token}`}})
+                    data.token = token
+                    commit('SET_AUTHENTICATED', true)
+                    commit('SET_USER', data)
+                    console.log('user: ', data)
+                } 
+                catch(err){
+                    console.log(err)
+                    commit('SET_AUTHENTICATED', false)
+                    commit('SET_USER', null)
+                }
             }
+
+            return
         }
     }
 }

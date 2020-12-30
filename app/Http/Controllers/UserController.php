@@ -48,8 +48,9 @@ class UserController extends Controller
     }
 
 
-    public function showCurrent(Request $request)
+    public function show(Request $request)
     {
+        // TODO: change to retrieving user by token, review next to auth.js - me function
         $user = $request->user();
         return response()->json($user);
     }

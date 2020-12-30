@@ -24,8 +24,11 @@
 
 <script>
 import axios from 'axios'
-import { computed, ref } from 'vue'
+import { computed, ref, onBeforeMount } from 'vue'
 import { useStore } from 'vuex'
+import { getToken} from "../utils"
+
+
 export default {
   name: "Login",
   setup(){
@@ -36,6 +39,12 @@ export default {
       password: null
     })
 
+    onBeforeMount( async () => {
+      // auto login if token present is localStorage - by utils.getToken()
+      let token = getToken();
+      if(token) await store.dispatch('auth/me', token)
+    })
+
     const user = computed(() => store.getters['auth/user']);
     const authenticated = computed(() => store.getters['auth/authenticated']);
 
@@ -44,14 +53,13 @@ export default {
     }
 
     const logout = async() => {
-      user ? await store.dispatch('auth/logout', {userId: user.value.id}) : 'No user is logged in'
+      if(user) await store.dispatch('auth/logout', {userId: user.value.id}) 
     }
 
     return{
-
-      authenticated,
-      user,
       credentials,
+      user,
+      authenticated,
       submit,
       logout
     }
