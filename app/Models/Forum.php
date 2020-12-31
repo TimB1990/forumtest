@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Tag;
 use App\Models\Post;
 use App\Models\Thread;
+use App\Models\Category;
 use App\Models\Moderator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -30,5 +31,9 @@ class Forum extends Model
 
     public function tags(){
         return $this->morphToMany(Tag::class, 'taggable');
+    }
+
+    public function category(){
+        return $this-> belongsTo(Category::class);
     }
 }

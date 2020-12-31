@@ -7,6 +7,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\ThreadController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ModeratorController;
 
 Route::get('/', function () {
@@ -19,6 +20,7 @@ Route::post('auth/register', [UserController::class, 'register']);
 Route::post('auth/logout', [UserController::class, 'logout']);
 
 // model routes - index - public
+Route::get('api/categories', [CategoryController::class, 'index']);
 Route::get('api/forums', [ForumController::class, 'index']);
 Route::get('api/threads', [ThreadController::class, 'index']);
 Route::get('api/posts', [PostController::class, 'index']);

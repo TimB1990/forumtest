@@ -8,12 +8,12 @@
             <login />
          </div>
       </header>
-      <nav class="container__breadcrumbs">... > ... > ... </nav>
+      <nav class="container__breadcrumbs"></nav>
       <main class="container__main">
 
          <!-- main cols -->
          <div class="forums">
-            forums
+            <category-item/>
          </div>
          <div class="forum-stats">Statestieken - forum</div>
          <div class="member-stats">Statistieken - leden</div>
@@ -42,11 +42,12 @@
 
 <script>
 import Login from './Login'
+import CategoryItem from './singles/CategoryItem'
 import { onBeforeMount, computed } from 'vue'
 import { useStore } from 'vuex'
 
 export default {
-   components: { Login },
+   components: { Login, CategoryItem },
    setup(){
       const store = useStore();
    }
