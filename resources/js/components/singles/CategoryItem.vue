@@ -29,6 +29,8 @@ export default {
    .category-thread-wrapper{
       grid-row: 1/-1;
       grid-column: 3/-1;
+      align-items: center;
+      border: 1px solid grey;
    }
 
    .category-container{
@@ -36,13 +38,7 @@ export default {
       grid-template-rows: 1fr;
       grid-template-columns: 25% 1fr 25%;
       justify-content: space-between;
-      padding: 1.5rem;
       column-gap: 1.5rem;
-      row-gap: 2rem;
-      height: 8rem;
-      border: 1px solid grey;
-      border-top: none;
-
    }
 
 </style>

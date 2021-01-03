@@ -22,8 +22,8 @@ export default {
    display: flex;
    flex-direction: column;
    border: 1px solid grey;
-   padding: 1rem;
    text-align: center;
+   padding: 1rem;
    flex-grow: 1;
 }
 
