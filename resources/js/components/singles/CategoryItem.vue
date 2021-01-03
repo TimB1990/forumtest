@@ -2,7 +2,9 @@
 <div class="category-container">
     <detail/>
     <counter/>
-    <thread/>
+    <div class="category-thread-wrapper">
+      <thread/>
+    </div>
 </div>
 </template>
 
@@ -23,12 +25,24 @@ export default {
 </script>
 
 <style>
+
+   .category-thread-wrapper{
+      grid-row: 1/-1;
+      grid-column: 3/-1;
+   }
+
    .category-container{
-      display: flex;
+      display: grid;
+      grid-template-rows: 1fr;
+      grid-template-columns: 25% 1fr 25%;
       justify-content: space-between;
-      padding: 2rem;
+      padding: 1.5rem;
+      column-gap: 1.5rem;
+      row-gap: 2rem;
       height: 8rem;
-      border: 1px solid red;
+      border: 1px solid grey;
+      border-top: none;
+
    }
 
 </style>

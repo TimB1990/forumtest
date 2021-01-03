@@ -3,6 +3,7 @@
   grid-template-rows: 25% -webkit-min-content 1fr 25%;
   grid-template-rows: 25% min-content 1fr 25%;
   grid-template-columns: 100%;
+  row-gap: 1rem;
   height: 100vh;
   width: 100%;
 }
@@ -11,6 +12,9 @@
   justify-content: space-between;
   grid-row: 1/2;
   grid-column: 1/-1;
+  background-image: linear-gradient(to bottom right, lightseagreen, lightgreen);
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
 }
 .container__breadcrumbs {
   grid-row: 2/3;
@@ -20,14 +24,16 @@
   grid-row: 3/4;
   grid-column: 1/-1;
   display: grid;
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-rows: 1fr -webkit-min-content -webkit-min-content;
+  grid-template-rows: 1fr min-content min-content;
   grid-template-columns: 1fr 18%;
+  row-gap: 2rem;
+  -moz-column-gap: 2rem;
+       column-gap: 2rem;
 }
 .container__main .forums {
   grid-row: 1/2;
   grid-column: 1/2;
-  border: 1px solid black;
-  padding: 2rem;
 }
 .container__main .forum-stats {
   grid-row: 2/3;

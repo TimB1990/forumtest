@@ -1,13 +1,11 @@
 <template>
-  <div>
-      <form v-if="!authenticated" action="#" @submit.prevent="submit">
+  <div class="form-container">
+      <form class="login-form" v-if="!authenticated" action="#" @submit.prevent="submit">
         <div class="field-container">
-          <label for="email">Email address</label>
-          <input type="text" name="email" id="email" v-model="credentials.email">
+          <input type="text" placeholder="email" name="email" id="email" v-model="credentials.email">
         </div>
         <div class="field-container">
-          <label for="password">Password</label>
-          <input type="password" name="password" id="password" v-model="credentials.password">
+          <input type="password" placeholder="password" name="password" id="password" v-model="credentials.password">
         </div>
         <div class="field-container">
           <button type="submit">
@@ -72,5 +70,35 @@ export default {
 .field-container{
     display: flex;
     flex-direction: column;
+    padding: 0.5rem;
 }
+
+/* .field-container:not(:first-child){
+  margin-bottom: 1rem;
+} */
+
+.field-container > input {
+  font-size: 1.8rem;
+  height: 3rem;
+  padding: 0.4rem;
+}
+
+.field-container > button {
+  font-size: 1.8rem;
+  background-color: white;
+  border: 1px solid black;
+  height: 4rem;
+}
+
+.form-container{
+  height: 100%;
+  margin-top: 2rem;
+}
+
+.login-form{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 </style>
