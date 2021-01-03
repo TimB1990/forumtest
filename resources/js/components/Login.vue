@@ -26,7 +26,6 @@ import { computed, ref, onBeforeMount } from 'vue'
 import { useStore } from 'vuex'
 import { getToken} from "../utils"
 
-
 export default {
   name: "Login",
   setup(){

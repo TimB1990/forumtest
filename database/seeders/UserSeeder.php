@@ -19,6 +19,28 @@ class UserSeeder extends Seeder
             'rank' => 1,
             'active' => true
         ]);
+
+        User::create([
+            'name' => 'moderator',
+            'email' => 'morderator@test.com',
+            'password' => bcrypt('moderator'),
+            'image' => 'image',
+            'role' => 'moderator',
+            'rank' => 1,
+            'active' => true
+        ]);
+
+        User::create([
+            'name' => 'member',
+            'email' => 'member@test.com',
+            'password' => bcrypt('member'),
+            'image' => 'image',
+            'role' => 'member',
+            'rank' => 1,
+            'active' => true
+        ]);
+
+        // create more by using factory
     }
 }
 

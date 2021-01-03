@@ -5,6 +5,7 @@
         <i class="fab fa-twitter"></i>
         <i class="fab fa-instagram"></i>
         <i class="fab fa-youtube"></i>
+        <i class="fab fa-discord"></i>
     </div>
     <ul class="footer-nav">
         <li><a href="#">Language</a></li>

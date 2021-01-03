@@ -8,24 +8,20 @@ use Illuminate\Http\Request;
 class CategoryController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $data = null;
-        $categories = Category::all();
+        $parent = $request->query('parent');
 
-        $categories->map(function($category) use(&$data) {
+        $data = [];
 
-            // set data with forums still empty
-            $data = ['img' => $category->image ,'name' => $category->name, 'forums' => null];
+        $categories = Category::where('parent', $parent)->get();
 
-            $forums = [];
-
-            $category->forums->map(function($forum) use(&$forums){
-                array_map($forum, $forums);
-            });
-
-            $data['forums'] = $forums; 
-
+        $categories->map(function($category) use(&$data){
+            array_push($data, [
+                'name' => $category->name,
+                'image' => $category->image,
+                'children' => Category::where('parent', $category->id)->get()
+            ]);
         });
 
         return response()->json($data);

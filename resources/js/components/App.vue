@@ -13,7 +13,12 @@
             <!-- main cols -->
             <div class="forums">
                 <div class="section-heading">Forums</div>
-                <category-item v-for="index in 5" :key="index" />
+                <div v-for="(category,index) in categories" :key="index">
+                    <category-item 
+                        :name="category.name" 
+                        :children="category.children" 
+                    />
+                </div>
             </div>
             <div class="forum-stats">
                 <div class="section-heading">Forum statistics</div>
@@ -78,6 +83,14 @@ export default {
     components: { Login, CategoryItem, Thread, Counter, PageFooter, NewMember },
     setup() {
         const store = useStore();
+        onBeforeMount(async() => {
+            await store.dispatch('category/fetchCategories', 0)
+        })
+        const categories = computed(() => store.getters['category/categories'])
+
+        return{
+            categories
+        }
     },
 };
 </script>
@@ -91,9 +104,9 @@ export default {
 .forums {
    display: flex;
    flex-direction: column;
-   justify-content: space-between;
     grid-row: 1/2;
     grid-column: 1/2;
+    row-gap: 2rem;
 }
 
 .forum-stats {
@@ -109,9 +122,14 @@ export default {
 .recent-subjects {
     grid-row: 1/2;
     grid-column: 2/-1;
-    display: grid;
-    grid-template-rows: min-content repeat(5, 1fr);
+    display: flex;
+    flex-direction: column;
     border: 1px solid grey;
+}
+
+.recent-subject-wrapper{
+    border: 1px solid red;
+    height: 6rem;
 }
 
 .recent-online {

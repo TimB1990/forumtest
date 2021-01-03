@@ -2,8 +2,12 @@
 <div class="detail">
    <div class="detail-image"><i class="far fa-comments"></i></div>
    <div class="detail-info">
-      <span class="detail-info-title">Generic</span>
-      <span class="detail-info-children">Thread-1, Thread-2, Thread-3</span>
+      <span class="detail-info-title">{{ props.name }}</span>
+      <div class="detail-info-children">
+         <span v-for="child in props.children" :key="child.id">
+            {{ child.name }},
+         </span>
+      </div>
    </div>
 </div>
 </template>
@@ -14,8 +18,16 @@ import { useStore } from 'vuex'
 
 export default {
    name: 'detail',
-   setup(){
+   props: {
+        name: String,
+        children: Object,
+    },
+
+   setup(props){
       const store = useStore();
+      return {
+         props
+      }
    }
 }
 </script>
