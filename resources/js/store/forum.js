@@ -1,27 +1,28 @@
 import axios from 'axios'
 export default{
+    
     namespaced: true,
     state: {
-        categories: null
+        forums: null
     },
     getters: {
-        categories(state){
+        forums(state){
             return state.categories
         }
     },
 
     mutations: {
-        SET_CATEGORIES(state, payload){
+        SET_FORUMS(state, payload){
             state.categories = payload
         }
     },
 
     actions: {
-        async fetchCategories({commit}, parent){
+        async fetchForums({commit}, parent){
             try{
-                const { data } = await axios.get(`api/categories?parent=${parent}`)
+                const { data } = await axios.get(`api/forums?parent=${parent}`)
                 if(!data.length > 0) return
-                commit('SET_CATEGORIES', data)
+                commit('SET_FORUMS', data)
             }
             catch(error){
                 console.log(error.response.data.error)

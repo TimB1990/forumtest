@@ -18,7 +18,7 @@ class ThreadController extends Controller
     }
 
 
-    public function show(Thread $thread)
+    public function show($slug)
     {
         //
     }

@@ -13,10 +13,10 @@
             <!-- main cols -->
             <div class="forums">
                 <div class="section-heading">Forums</div>
-                <div v-for="(category,index) in categories" :key="index">
-                    <category-item 
-                        :name="category.name" 
-                        :children="category.children" 
+                <div v-for="(forum,index) in forums" :key="index">
+                    <forum-item 
+                        :name="forum.name" 
+                        :children="forum.children" 
                     />
                 </div>
             </div>
@@ -71,7 +71,7 @@
 
 <script>
 import Login from "./Login";
-import CategoryItem from "./singles/CategoryItem";
+import ForumItem from "./singles/ForumItem"
 import Counter from "./generic/Counter";
 import Thread from "./generic/Thread";
 import PageFooter from "./misc/PageFooter";
@@ -80,16 +80,16 @@ import { onBeforeMount, computed } from "vue";
 import { useStore } from "vuex";
 
 export default {
-    components: { Login, CategoryItem, Thread, Counter, PageFooter, NewMember },
+    components: { Login, ForumItem, Thread, Counter, PageFooter, NewMember },
     setup() {
         const store = useStore();
         onBeforeMount(async() => {
-            await store.dispatch('category/fetchCategories', 0)
+            await store.dispatch('forum/fetchForums', 0)
         })
-        const categories = computed(() => store.getters['category/categories'])
+        const forums = computed(() => store.getters['forum/forums'])
 
         return{
-            categories
+            forums
         }
     },
 };

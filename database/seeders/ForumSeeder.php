@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Category;
+use App\Models\Forum;
 use Illuminate\Database\Seeder;
 
-class CategorySeeder extends Seeder
+class ForumSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,60 +15,68 @@ class CategorySeeder extends Seeder
     public function run()
     {
         // first: news
-        Category::create([
+        Forum::create([
             'parent' => 0,
             'children' => 4,
             'name' => 'News',
+            'slug' => 'news',
             'image' => null,
         ]);
 
         // then: Misc
-        Category::create([
+        Forum::create([
             'parent' => 0,
             'children' => 3,
             'name' => 'Misc',
+            'slug' => 'misc',
             'image' => null
         ]);
 
         // general, tech, lifestyle
-        Category::create([
+        Forum::create([
             'parent' => 1,
             'children' => 0,
-            'name' => 'News: General',
+            'name' => 'General news',
+            'slug' => 'general-news',
             'image' => null
         ]);
 
-        Category::create([
+        Forum::create([
             'parent' => 1,
             'children' => 0,
-            'name' => 'News: Tech',
+            'name' => 'Tech news',
+            'slug' => 'tech-news',
             'image' => null
         ]);
 
-        Category::create([
+        Forum::create([
             'parent' => 1,
             'children' => 0,
-            'name' => 'News: Lifestyle',
+            'name' => 'Lifestyle news',
+            'slug' => 'lifestyle-news',
             'image' => null
         ]);
 
         // Games, Sport, Media
-        Category::create([
+        Forum::create([
             'parent' => 2,
             'children' => 0,
-            'name' => 'Games'
+            'name' => 'Games',
+            'slug' => 'games',
         ]);
 
-        Category::create([
+        Forum::create([
             'parent' => 2,
             'children' => 0,
-            'name' => 'Sports'
+            'name' => 'Sports',
+            'slug' => 'sports'
         ]);
 
-        Category::create([
+        Forum::create([
             'parent' => 2,
             'children' => 0,
-            'name' => 'Media'
+            'name' => 'Media',
+            'slug' => 'media'
         ]);
     }
 }

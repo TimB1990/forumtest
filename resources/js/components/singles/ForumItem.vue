@@ -1,8 +1,8 @@
 <template>
-    <div class="category-container">
+    <div class="forum-container">
         <detail :name="props.name" :children="props.children" />
         <counter />
-        <div class="category-thread-wrapper">
+        <div class="forum-thread-wrapper">
             <thread />
         </div>
     </div>
@@ -16,7 +16,7 @@ import Counter from "../generic/Counter";
 import Thread from "../generic/Thread";
 
 export default {
-    name: "categoryItem",
+    name: "forumItem",
 
     props: {
         name: String,
@@ -36,14 +36,14 @@ export default {
 </script>
 
 <style>
-.category-thread-wrapper {
+.forum-thread-wrapper {
     grid-row: 1/-1;
     grid-column: 3/-1;
     align-items: center;
     border: 1px solid grey;
 }
 
-.category-container {
+.forum-container {
     display: grid;
     grid-template-rows: 1fr;
     grid-template-columns: 25% 1fr 25%;

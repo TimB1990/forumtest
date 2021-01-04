@@ -15,9 +15,12 @@ class CreateForumsTable extends Migration
     {
         Schema::create('forums', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('category_id')->constrained();
+            $table->integer('parent');
+            $table->integer('children');
             $table->string('name');
-            $table->string('description');
+            $table->string('slug')->unique();
+            $table->string('image')->nullable();
+            $table->string('description')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

@@ -29,8 +29,9 @@ Route::get('api/tags', [TagController::class, 'index']);
 Route::get('api/users', [UserController::class, 'index']);
 
 // model routes - show - public
-Route::get('api/forums/:id', [ForumController::class, 'show']);
-Route::get('api/threads/:id', [ThreadController::class, 'show']);
+Route::get('api/categories/:slug', [CategoryController::class, 'show']);
+Route::get('api/forums/:slug', [ForumController::class, 'show']);
+Route::get('api/threads/:slug', [ThreadController::class, 'show']);
 Route::get('api/users/:id', [UserController::class, 'show']);
 
 Route::middleware('auth:sanctum')->group(function(){

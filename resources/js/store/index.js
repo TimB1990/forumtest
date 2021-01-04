@@ -1,10 +1,10 @@
 import { createStore } from 'vuex'
 import auth from './auth'
-import category from './category'
+import forum from './forum'
 
 export default new createStore({
     modules: {
         auth,
-        category
+        forum
     }
 })
