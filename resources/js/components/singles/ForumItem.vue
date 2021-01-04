@@ -1,8 +1,8 @@
 <template>
-    <div class="forum-container">
+    <div class="item-container">
         <detail :slug="props.slug" :name="props.name" :children="props.children" />
         <counter />
-        <div class="forum-thread-wrapper">
+        <div class="item-thread-wrapper">
             <thread />
         </div>
     </div>
@@ -37,14 +37,14 @@ export default {
 </script>
 
 <style>
-.forum-thread-wrapper {
+.item-thread-wrapper {
     grid-row: 1/-1;
     grid-column: 3/-1;
     align-items: center;
     border: 1px solid grey;
 }
 
-.forum-container {
+.item-container {
     display: grid;
     grid-template-rows: 1fr;
     grid-template-columns: 25% 1fr 25%;

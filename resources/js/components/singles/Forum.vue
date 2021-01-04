@@ -1,25 +1,27 @@
 <template>
     <div>
-        <div v-for="(forum, index) in forums" :key="index">
+        <div
+            class="forums-container"
+            v-for="(forum, index) in forums"
+            :key="index"
+        >
             <h1>{{ forum.name }}</h1>
-            <div class="forums-container" v-if="forum.children.length">
-                <forum-item
-                    v-for="child in forum.children"
-                    :key="child.id"
-                    :slug="child.slug"
-                    :name="child.name"
-                    :children="child.children"
-                />
-            </div>
+            <forum-item
+                v-for="child in forum.children"
+                :key="child.id"
+                :slug="child.slug"
+                :name="child.name"
+                :children="child.children"
+            />
         </div>
     </div>
     <div class="threads-container">Here you will see threads if present</div>
 </template>
 
 <script>
-import { onBeforeMount, computed, ref } from "vue";
+import { onBeforeMount, computed, ref, watch } from "vue";
 import { useStore } from "vuex";
-import { useRoute } from "vue-router";
+import { useRoute, onBeforeRouteUpdate } from "vue-router";
 import ForumItem from "../singles/ForumItem";
 
 export default {
@@ -30,10 +32,19 @@ export default {
         const store = useStore();
         const route = useRoute();
 
+        watch(
+            () => route.params,
+            async (newParams) => {
+                store.dispatch("forum/clearForums");
+                await store.dispatch("forum/fetchForums", newParams.slug);
+            }
+        );
+
         onBeforeMount(async () => {
             store.dispatch("forum/clearForums");
             await store.dispatch("forum/fetchForums", route.params.slug);
         });
+
         const forums = computed(() => store.getters["forum/forums"]);
 
         return {

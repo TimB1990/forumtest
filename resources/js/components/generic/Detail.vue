@@ -3,10 +3,10 @@
    <div class="detail-image"><i class="far fa-comments"></i></div>
    <div class="detail-info">
       <span class="detail-info-title">
-         <router-link :to="{ name: 'forum' , params: {slug : props.slug}}">{{ props.name }}</router-link>
+         <router-link :to="{ name: 'forum' , params: {slug: props.slug}}">{{ props.name }}</router-link>
       </span>
       <div class="detail-info-children">
-         <span v-for="child in props.children" :key="child.id">
+         <span v-for="(child,index) in props.children" :key="index">
             <router-link :to="{ name: 'forum', params: { slug: child.slug}}">{{ child.name }}</router-link>,
          </span>
       </div>
