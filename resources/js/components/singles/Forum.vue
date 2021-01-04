@@ -32,6 +32,11 @@ export default {
         const store = useStore();
         const route = useRoute();
 
+        onBeforeMount(async () => {
+            store.dispatch("forum/clearForums");
+            await store.dispatch("forum/fetchForums", route.params.slug);
+        });
+
         watch(
             () => route.params,
             async (newParams) => {
@@ -39,11 +44,6 @@ export default {
                 await store.dispatch("forum/fetchForums", newParams.slug);
             }
         );
-
-        onBeforeMount(async () => {
-            store.dispatch("forum/clearForums");
-            await store.dispatch("forum/fetchForums", route.params.slug);
-        });
 
         const forums = computed(() => store.getters["forum/forums"]);
 

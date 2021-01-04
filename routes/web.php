@@ -70,3 +70,8 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::delete('api/users/:id', [UserController::class, 'destory']);
 
 });
+
+Route::get('{any}', function () {
+    return view('layouts.app');
+})->where('any','.*');
+

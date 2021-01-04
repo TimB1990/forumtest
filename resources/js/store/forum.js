@@ -1,9 +1,10 @@
 import axios from 'axios'
-export default{
+
+export const forum = {
     
     namespaced: true,
     state: {
-        forums: null
+        forums: []
     },
     getters: {
         forums(state){
