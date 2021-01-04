@@ -1,6 +1,6 @@
 <template>
     <div class="forum-container">
-        <detail :name="props.name" :children="props.children" />
+        <detail :slug="props.slug" :name="props.name" :children="props.children" />
         <counter />
         <div class="forum-thread-wrapper">
             <thread />
@@ -20,6 +20,7 @@ export default {
 
     props: {
         name: String,
+        slug: String,
         children: Object,
     },
 

@@ -7,22 +7,41 @@ export default{
     },
     getters: {
         forums(state){
-            return state.categories
+            return state.forums
         }
     },
 
     mutations: {
         SET_FORUMS(state, payload){
-            state.categories = payload
+            state.forums = payload
+        },
+
+        CLEAR_FORUMS(state){
+            state.forums = null
         }
     },
 
     actions: {
-        async fetchForums({commit}, parent){
+        clearForums({commit}){
+            commit('CLEAR_FORUMS')
+        },
+
+        async fetchForums({commit}, parentSlug){
             try{
-                const { data } = await axios.get(`api/forums?parent=${parent}`)
+
+                let url = null
+
+                if(parentSlug) {
+                    url = `/api/forums?slug=${parentSlug}`
+                }
+                else{
+                    url = '/api/forums'
+                }
+
+                const { data } = await axios.get(url)
                 if(!data.length > 0) return
                 commit('SET_FORUMS', data)
+                
             }
             catch(error){
                 console.log(error.response.data.error)

@@ -2,10 +2,12 @@
 <div class="detail">
    <div class="detail-image"><i class="far fa-comments"></i></div>
    <div class="detail-info">
-      <span class="detail-info-title">{{ props.name }}</span>
+      <span class="detail-info-title">
+         <router-link :to="{ name: 'forum' , params: {slug : props.slug}}">{{ props.name }}</router-link>
+      </span>
       <div class="detail-info-children">
          <span v-for="child in props.children" :key="child.id">
-            {{ child.name }},
+            <router-link :to="{ name: 'forum', params: { slug: child.slug}}">{{ child.name }}</router-link>,
          </span>
       </div>
    </div>
@@ -15,16 +17,22 @@
 <script>
 import { onBeforeMount, computed, ref } from 'vue'
 import { useStore } from 'vuex'
+import { useRouter, useRoute } from 'vue-router'
 
 export default {
    name: 'detail',
    props: {
         name: String,
+        slug: String,
         children: Object,
     },
 
    setup(props){
+
       const store = useStore();
+      const route = useRoute();
+      const router = useRouter();
+
       return {
          props
       }

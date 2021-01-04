@@ -10,13 +10,18 @@ class ForumController extends Controller
 
     public function index(Request $request)
     {
-        $parent = $request->query('parent');
+        $slug = $request->query('slug');
 
         $data = [];
 
-        $categories = Forum::where('parent', $parent)->get();
+        if($slug){
+            $forums = Forum::where('slug', $slug)->get();
+        }
+        else{
+            $forums = Forum::where('parent', 0)->get();
+        }
 
-        $categories->map(function($forum) use(&$data){
+        $forums->map(function($forum) use(&$data){
             array_push($data, [
                 'name' => $forum->name,
                 'slug' => $forum->slug,

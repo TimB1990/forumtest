@@ -13,12 +13,8 @@
             <!-- main cols -->
             <div class="forums">
                 <div class="section-heading">Forums</div>
-                <div v-for="(forum,index) in forums" :key="index">
-                    <forum-item 
-                        :name="forum.name" 
-                        :children="forum.children" 
-                    />
-                </div>
+                <!-- router view -->
+                <router-view></router-view>
             </div>
             <div class="forum-stats">
                 <div class="section-heading">Forum statistics</div>
@@ -32,7 +28,7 @@
                 <div class="section-counters">
                     <counter />
                     <counter />
-                    <new-member/>
+                    <new-member />
                 </div>
             </div>
 
@@ -49,18 +45,16 @@
             </div>
 
             <div class="recent-online">
-               <div class="section-heading">Recent users online (view full list)</div>
-               <div class="recent-online-list">
-                  <span>Test 1</span>,
-                  <span>Test 2</span>,
-                  <span>Test 3</span>,
-                  <span>Test 4</span>,
-                  <span>Test 5</span>,
-                  <span>Test 6</span>,
-                  <span>Test 7</span>,
-                  <span>Test 8</span>,
-                  <span>Test 9</span>
-               </div>
+                <div class="section-heading">
+                    Recent users online (view full list)
+                </div>
+                <div class="recent-online-list">
+                    <span>Test 1</span>, <span>Test 2</span>,
+                    <span>Test 3</span>, <span>Test 4</span>,
+                    <span>Test 5</span>, <span>Test 6</span>,
+                    <span>Test 7</span>, <span>Test 8</span>,
+                    <span>Test 9</span>
+                </div>
             </div>
         </main>
         <footer class="container__foot">
@@ -71,7 +65,7 @@
 
 <script>
 import Login from "./Login";
-import ForumItem from "./singles/ForumItem"
+import ForumItem from "./singles/ForumItem";
 import Counter from "./generic/Counter";
 import Thread from "./generic/Thread";
 import PageFooter from "./misc/PageFooter";
@@ -80,17 +74,12 @@ import { onBeforeMount, computed } from "vue";
 import { useStore } from "vuex";
 
 export default {
-    components: { Login, ForumItem, Thread, Counter, PageFooter, NewMember },
+    components: { Login, Thread, Counter, PageFooter, NewMember },
     setup() {
         const store = useStore();
-        onBeforeMount(async() => {
-            await store.dispatch('forum/fetchForums', 0)
-        })
-        const forums = computed(() => store.getters['forum/forums'])
-
-        return{
-            forums
-        }
+        return {
+            //
+        };
     },
 };
 </script>
@@ -100,13 +89,9 @@ export default {
     font-size: 6rem;
     font-weight: bold;
 }
-
 .forums {
-   display: flex;
-   flex-direction: column;
     grid-row: 1/2;
     grid-column: 1/2;
-    row-gap: 2rem;
 }
 
 .forum-stats {
@@ -127,9 +112,10 @@ export default {
     border: 1px solid grey;
 }
 
-.recent-subject-wrapper{
+.recent-subject-wrapper {
     border: 1px solid red;
     height: 6rem;
+    padding: 1.5rem;
 }
 
 .recent-online {
@@ -140,12 +126,12 @@ export default {
     border: 1px solid grey;
 }
 
-.recent-online-list{
-   font-size: 1.8rem;
-   padding: 1.5rem;
-   overflow: hidden;
+.recent-online-list {
+    font-size: 1.8rem;
+    padding: 1.5rem;
+    overflow: hidden;
 }
- 
+
 .forum-stats,
 .member-stats {
     display: flex;
@@ -161,9 +147,5 @@ export default {
 
 .section-counters {
     display: flex;
-}
-
-.recent-subject-wrapper {
-    padding: 1.5rem;
 }
 </style>

@@ -1,11 +1,19 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import App from './components/App.vue'
+import Forums from './components/sections/Forums.vue'
+import Forum from './components/singles/Forum.vue'
 
 const routes = [
     {
         path: "/",
-        name: "App",
-        component: App
+        name: "forums",
+        component: Forums
+    },
+
+    {
+        path: "/forums/:slug",
+        name: "forum",
+        component: Forum
     }
 ]
 
