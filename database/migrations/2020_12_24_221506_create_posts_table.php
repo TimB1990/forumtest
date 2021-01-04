@@ -18,8 +18,7 @@ class CreatePostsTable extends Migration
             $table->foreignId('user_id')->contrained()->index();
             $table->foreignId('thread_id')->constrained()->index();
             $table->foreignId('forum_id')->constrained();
-            $table->unsignedBigInteger('parent_id')->index();
-            $table->integer('children')->index();
+            $table->integer('parent_id')->index()->default(0);
             $table->text('message');
             $table->softDeletes();
             $table->timestamps();
