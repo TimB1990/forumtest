@@ -28,7 +28,7 @@
                 <div class="section-counters">
                     <counter />
                     <counter />
-                    <new-member />
+                    <member :announceNewest="true" />
                 </div>
             </div>
 
@@ -68,13 +68,13 @@ import Login from "./Login";
 import ForumItem from "./singles/ForumItem";
 import Counter from "./generic/Counter";
 import Thread from "./generic/Thread";
-import PageFooter from "./misc/PageFooter";
-import NewMember from "./misc/NewMember";
+import PageFooter from "./sections/PageFooter";
+import Member from "./misc/Member";
 import { onBeforeMount, computed } from "vue";
 import { useStore } from "vuex";
 
 export default {
-    components: { Login, Thread, Counter, PageFooter, NewMember },
+    components: { Login, Thread, Counter, PageFooter, Member },
     setup() {
         const store = useStore();
         return {

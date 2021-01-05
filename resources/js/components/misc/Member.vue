@@ -1,10 +1,10 @@
 <template>
-    <div class="new-member">
-        <div class="new-member-image"><span>M</span></div>
-        <div class="new-member-info">
-            <span class="new-member-title">Newest Member</span>
-            <span class="new-member-name">Member123</span>
-            <span class="new-member-since">January 3, 2021</span>
+    <div class="member">
+        <div class="member-image"><span>M</span></div>
+        <div class="member-info">
+            <span v-if="props.announceNewest" class="member-title">Newest Member</span>
+            <span class="member-name">Member123</span>
+            <span class="member-since">January 3, 2021</span>
         </div>
     </div>
 </template>
@@ -14,22 +14,32 @@ import { onBeforeMount, computed, ref } from "vue";
 import { useStore } from "vuex";
 
 export default {
-    name: "newMember",
-    setup() {
+    name: "member",
+    props: {
+        announceNewest: {
+            type: Boolean,
+            default: false
+        } 
+    },
+    setup(props) {
         const store = useStore();
+
+        return {
+            props
+        }
     },
 };
 </script>
 
 <style>
-.new-member {
+.member {
     display: flex;
     align-items: center;
     border: 1px solid grey;
     flex-grow: 0.5;
 }
 
-.new-member-image {
+.member-image {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -40,14 +50,14 @@ export default {
     font-size: 4rem;
 }
 
-.new-member-info {
+.member-info {
     display: flex;
     flex-direction: column;
     font-size: 1.5rem;
     padding: 1rem;
 }
 
-.new-member-title {
+.member-title {
     text-transform: uppercase;
 }
 </style>

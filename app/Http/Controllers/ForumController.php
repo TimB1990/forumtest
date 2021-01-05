@@ -23,6 +23,7 @@ class ForumController extends Controller
 
         $forums->map(function($forum) use(&$data){
             array_push($data, [
+                'id' => $forum->id,
                 'name' => $forum->name,
                 'slug' => $forum->slug,
                 'image' => $forum->image,

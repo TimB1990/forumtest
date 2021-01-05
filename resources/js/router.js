@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import App from './components/App.vue'
 import Forums from './components/sections/Forums.vue'
-import Forum from './components/singles/Forum.vue'
+import Forum from './components/sections/Forum.vue'
 
 const routes = [
     {

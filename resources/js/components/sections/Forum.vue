@@ -14,8 +14,11 @@
                 :children="child.children"
             />
         </div>
+        <div>
+            <thread-item v-for="index in 4" :key="index"/>
+        </div>
     </div>
-    <div class="threads-container">Here you will see threads if present</div>
+
 </template>
 
 <script>
@@ -23,10 +26,11 @@ import { onBeforeMount, computed, ref, watch } from "vue";
 import { useStore } from "vuex";
 import { useRoute, onBeforeRouteUpdate } from "vue-router";
 import ForumItem from "../singles/ForumItem";
+import ThreadItem from "../singles/ThreadItem";
 
 export default {
     name: "Forums",
-    components: { ForumItem },
+    components: { ForumItem, ThreadItem },
 
     setup() {
         const store = useStore();
