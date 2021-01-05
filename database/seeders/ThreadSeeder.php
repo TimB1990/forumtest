@@ -13,8 +13,9 @@ class ThreadSeeder extends Seeder
     {
         // call tread factory for 10 threads and create 5 posts for them each
         Thread::factory()->count(20)->has(Post::factory()->count(10)->state(function(array $attributes, Thread $thread){
+
             return [
-                'thread_id' => $thread->id
+                'thread_id' => $thread->id,
             ];
         }))->create();
     }

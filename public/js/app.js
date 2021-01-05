@@ -16623,8 +16623,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     var forums = (0,vue__WEBPACK_IMPORTED_MODULE_1__.computed)(function () {
       return store.getters["forum/forums"];
     });
+    var threads = (0,vue__WEBPACK_IMPORTED_MODULE_1__.computed)(function () {
+      return store.getters["forum/threads"];
+    });
     return {
-      forums: forums
+      forums: forums,
+      threads: threads
     };
   }
 });
@@ -17244,7 +17248,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", {
       "class": "forums-container",
       key: index
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("h1", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(forum.name), 1
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("h1", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)("".concat(forum.id, "-").concat(forum.name)), 1
     /* TEXT */
     ), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(forum.children, function (child) {
       return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_forum_item, {
@@ -17257,16 +17261,16 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       , ["slug", "name", "children"]);
     }), 128
     /* KEYED_FRAGMENT */
+    )), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.threads.data, function (thread) {
+      return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_thread_item, {
+        key: thread.id
+      });
+    }), 128
+    /* KEYED_FRAGMENT */
     ))]);
   }), 128
   /* KEYED_FRAGMENT */
-  )), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(4, function (index) {
-    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_thread_item, {
-      key: index
-    });
-  }), 64
-  /* STABLE_FRAGMENT */
-  ))])]);
+  ))]);
 }
 
 /***/ }),
@@ -17666,19 +17670,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var forum = {
   namespaced: true,
   state: {
-    forums: []
+    forums: [],
+    threads: {}
   },
   getters: {
     forums: function forums(state) {
       return state.forums;
+    },
+    threads: function threads(state) {
+      return state.threads;
     }
   },
   mutations: {
     SET_FORUMS: function SET_FORUMS(state, payload) {
       state.forums = payload;
     },
+    SET_THREADS: function SET_THREADS(state, payload) {
+      state.threads = payload;
+    },
     CLEAR_FORUMS: function CLEAR_FORUMS(state) {
       state.forums = null;
+    },
+    CLEAR_THREADS: function CLEAR_THREADS(state) {
+      state.threads = null;
     }
   },
   actions: {
@@ -17686,40 +17700,41 @@ var forum = {
       var commit = _ref.commit;
       commit('CLEAR_FORUMS');
     },
-    fetchForums: function fetchForums(_ref2, parentSlug) {
+    clearThreads: function clearThreads(_ref2) {
+      var commit = _ref2.commit;
+      commit('CLEAR_THREADS');
+    },
+    fetchForums: function fetchForums(_ref3, parentSlug) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var commit, url, _yield$axios$get, data;
+        var commit, dispatch, url, _yield$axios$get, data;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                commit = _ref2.commit;
+                commit = _ref3.commit, dispatch = _ref3.dispatch;
                 _context.prev = 1;
-                url = null;
-
-                if (parentSlug) {
-                  url = "/api/forums?slug=".concat(parentSlug);
-                } else {
-                  url = '/api/forums';
-                }
-
-                _context.next = 6;
+                url = parentSlug ? "/api/forums?slug=".concat(parentSlug) : '/api/forums';
+                _context.next = 5;
                 return axios__WEBPACK_IMPORTED_MODULE_1___default().get(url);
 
-              case 6:
+              case 5:
                 _yield$axios$get = _context.sent;
                 data = _yield$axios$get.data;
 
                 if (!(!data.length > 0)) {
-                  _context.next = 10;
+                  _context.next = 9;
                   break;
                 }
 
                 return _context.abrupt("return");
 
-              case 10:
+              case 9:
                 commit('SET_FORUMS', data);
+                if (data.length == 1) dispatch('fetchThreads', {
+                  forumId: data[0].id,
+                  page: 1
+                });
                 _context.next = 16;
                 break;
 
@@ -17734,6 +17749,42 @@ var forum = {
             }
           }
         }, _callee, null, [[1, 13]]);
+      }))();
+    },
+    fetchThreads: function fetchThreads(_ref4, _ref5) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var commit, page, forumId, threadPage, url, _yield$axios$get2, data;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                commit = _ref4.commit;
+                page = _ref5.page, forumId = _ref5.forumId;
+                _context2.prev = 2;
+                threadPage = page && !page == 0 ? page : 1;
+                url = forumId ? "/api/threads?page=".concat(threadPage, "&forum=").concat(forumId) : "/api/threads/page=".concat(threadPage);
+                _context2.next = 7;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().get(url);
+
+              case 7:
+                _yield$axios$get2 = _context2.sent;
+                data = _yield$axios$get2.data;
+                commit('SET_THREADS', data);
+                _context2.next = 15;
+                break;
+
+              case 12:
+                _context2.prev = 12;
+                _context2.t0 = _context2["catch"](2);
+                console.log(_context2.t0.response.data.error);
+
+              case 15:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, null, [[2, 12]]);
       }))();
     }
   }
@@ -17752,121 +17803,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.mjs");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.mjs");
 /* harmony import */ var _auth__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./auth */ "./resources/js/store/auth.js");
 /* harmony import */ var _forum__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./forum */ "./resources/js/store/forum.js");
-/* harmony import */ var _thread__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./thread */ "./resources/js/store/thread.js");
 
 
 
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vuex__WEBPACK_IMPORTED_MODULE_3__.createStore({
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vuex__WEBPACK_IMPORTED_MODULE_2__.createStore({
   modules: {
     auth: _auth__WEBPACK_IMPORTED_MODULE_0__.default,
-    forum: _forum__WEBPACK_IMPORTED_MODULE_1__.forum,
-    thread: _thread__WEBPACK_IMPORTED_MODULE_2__.thread
+    forum: _forum__WEBPACK_IMPORTED_MODULE_1__.forum
   }
 }));
-
-/***/ }),
-
-/***/ "./resources/js/store/thread.js":
-/*!**************************************!*\
-  !*** ./resources/js/store/thread.js ***!
-  \**************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "thread": () => /* binding */ thread
-/* harmony export */ });
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-
-var thread = {
-  namespaced: true,
-  state: {
-    threads: []
-  },
-  getters: {
-    threads: function threads(state) {
-      return state.threads;
-    }
-  },
-  mutations: {
-    SET_THREADS: function SET_THREADS(state, payload) {
-      state.threads = payload;
-    },
-    CLEAR_THREADS: function CLEAR_THREADS(state) {
-      state.threads = null;
-    }
-  },
-  actions: {
-    clearThreads: function clearThreads(_ref) {
-      var commit = _ref.commit;
-      commit('CLEAR_THREADS');
-    },
-    fetchThreads: function fetchThreads(_ref2, forumId) {
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var commit, url, _yield$axios$get, data;
-
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                commit = _ref2.commit;
-                _context.prev = 1;
-                url = null;
-
-                if (forumId) {
-                  url = "/api/threads?forum=".concat(forumId);
-                } else {
-                  url = '/api/threads';
-                }
-
-                _context.next = 6;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default().get(url);
-
-              case 6:
-                _yield$axios$get = _context.sent;
-                data = _yield$axios$get.data;
-
-                if (!(!data.length > 0)) {
-                  _context.next = 10;
-                  break;
-                }
-
-                return _context.abrupt("return");
-
-              case 10:
-                commit('SET_THREADS', data);
-                _context.next = 16;
-                break;
-
-              case 13:
-                _context.prev = 13;
-                _context.t0 = _context["catch"](1);
-                console.log(_context.t0.response.data.error);
-
-              case 16:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, null, [[1, 13]]);
-      }))();
-    }
-  }
-};
 
 /***/ }),
 

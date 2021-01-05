@@ -5,7 +5,7 @@
             v-for="(forum, index) in forums"
             :key="index"
         >
-            <h1>{{ forum.name }}</h1>
+            <h1>{{ `${forum.id}-${forum.name}` }}</h1>
             <forum-item
                 v-for="child in forum.children"
                 :key="child.id"
@@ -13,9 +13,7 @@
                 :name="child.name"
                 :children="child.children"
             />
-        </div>
-        <div>
-            <thread-item v-for="index in 4" :key="index"/>
+            <thread-item v-for="thread in threads.data" :key="thread.id"/>
         </div>
     </div>
 
@@ -50,9 +48,11 @@ export default {
         );
 
         const forums = computed(() => store.getters["forum/forums"]);
+        const threads = computed(() => store.getters["forum/threads"]);
 
         return {
             forums,
+            threads
         };
     },
 };
