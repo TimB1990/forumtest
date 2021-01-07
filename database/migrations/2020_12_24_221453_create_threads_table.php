@@ -20,6 +20,7 @@ class CreateThreadsTable extends Migration
             $table->string('user');
             $table->string('title');
             $table->string('slug')->unique();
+            $table->integer('posts_count');
             $table->softDeletes();
             $table->timestamps();
         });

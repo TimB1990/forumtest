@@ -19,14 +19,16 @@ class ThreadFactory extends Factory
         // user ids: 3 -> member, 2 -> moderator, 1 -> admin
 
         $sentence = $this->faker->sentence(5);
-        $user = User::find(Arr::random([1,2,3]))->select('id','name')->first();
+        $randomUserId = rand(1,3);
+        $user = User::find($randomUserId)->name;
 
         return [
             'forum_id' => Arr::random([3,4,5,6,7,8]),
-            'user_id' => $user->id,
-            'user' => $user->name,
+            'user_id' => $randomUserId,
+            'user' => $user,
             'title' => $sentence,
-            'slug' => Str::kebab($sentence)
+            'slug' => Str::kebab($sentence),
+            'posts_count' => 0
         ];
     }
 }

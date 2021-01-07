@@ -13,10 +13,16 @@
                 :name="child.name"
                 :children="child.children"
             />
-            <thread-item v-for="thread in threads.data" :key="thread.id"/>
+            <thread-item
+                v-for="thread in threads.data"
+                :key="thread.id"
+                :user="thread.user"
+                :title="thread.title"
+                :slug="thread.slug"
+                :created="new Date(thread.created_at).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })"
+            />
         </div>
     </div>
-
 </template>
 
 <script>
@@ -52,7 +58,7 @@ export default {
 
         return {
             forums,
-            threads
+            threads,
         };
     },
 };

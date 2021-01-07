@@ -20,6 +20,8 @@ class ForumSeeder extends Seeder
             'name' => 'News',
             'slug' => 'news',
             'image' => null,
+            'threads_count' => 0,
+            'posts_count' => 0
         ]);
 
         // then: Misc
@@ -27,7 +29,9 @@ class ForumSeeder extends Seeder
             'parent' => 0,
             'name' => 'Misc',
             'slug' => 'misc',
-            'image' => null
+            'image' => null,
+            'threads_count' => 0,
+            'posts_count' => 0
         ]);
 
         // general, tech, lifestyle
@@ -35,21 +39,27 @@ class ForumSeeder extends Seeder
             'parent' => 1,
             'name' => 'General news',
             'slug' => 'general-news',
-            'image' => null
+            'image' => null,
+            'threads_count' => 0,
+            'posts_count' => 0
         ]);
 
         Forum::create([
             'parent' => 1,
             'name' => 'Tech news',
             'slug' => 'tech-news',
-            'image' => null
+            'image' => null,
+            'threads_count' => 0,
+            'posts_count' => 0
         ]);
 
         Forum::create([
             'parent' => 1,
             'name' => 'Lifestyle news',
             'slug' => 'lifestyle-news',
-            'image' => null
+            'image' => null,
+            'threads_count' => 0,
+            'posts_count' => 0
         ]);
 
         // Games, Sport, Media
@@ -57,18 +67,27 @@ class ForumSeeder extends Seeder
             'parent' => 2,
             'name' => 'Games',
             'slug' => 'games',
+            'image' => null,
+            'threads_count' => 0,
+            'posts_count' => 0
         ]);
 
         Forum::create([
             'parent' => 2,
             'name' => 'Sports',
-            'slug' => 'sports'
+            'slug' => 'sports',
+            'image' => null,
+            'threads_count' => 0,
+            'posts_count' => 0
         ]);
 
         Forum::create([
             'parent' => 2,
             'name' => 'Media',
-            'slug' => 'media'
+            'slug' => 'media',
+            'image' => null,
+            'threads_count' => 0,
+            'posts_count' => 0
         ]);
     }
 }

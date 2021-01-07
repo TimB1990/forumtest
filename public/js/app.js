@@ -16532,10 +16532,17 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "threadTitle",
+  props: {
+    user: String,
+    title: String,
+    slug: String,
+    created: Date
+  },
   components: {},
-  setup: function setup() {
+  setup: function setup(props) {
     var store = (0,vuex__WEBPACK_IMPORTED_MODULE_1__.useStore)();
-    return {//
+    return {
+      props: props
     };
   }
 });
@@ -16783,6 +16790,12 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "threadItem",
+  props: {
+    user: String,
+    title: String,
+    slug: String,
+    created: Date
+  },
   components: {
     Member: _misc_Member__WEBPACK_IMPORTED_MODULE_2__.default,
     Counter: _generic_Counter__WEBPACK_IMPORTED_MODULE_1__.default,
@@ -16790,7 +16803,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   setup: function setup(props) {
     var store = (0,vuex__WEBPACK_IMPORTED_MODULE_4__.useStore)();
-    return {//
+    return {
+      props: props
     };
   }
 });
@@ -17207,21 +17221,18 @@ __webpack_require__.r(__webpack_exports__);
 var _hoisted_1 = {
   "class": "title-element"
 };
-
-var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", {
+var _hoisted_2 = {
   "class": "title-element-topic"
-}, "Thread Title", -1
-/* HOISTED */
-);
-
-var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", {
+};
+var _hoisted_3 = {
   "class": "title-element-created"
-}, "By: test, October 10, 2020", -1
-/* HOISTED */
-);
-
+};
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_1, [_hoisted_2, _hoisted_3]);
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.props.title), 1
+  /* TEXT */
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", _hoisted_3, "By: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.props.user) + " | " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.props.created), 1
+  /* TEXT */
+  )]);
 }
 
 /***/ }),
@@ -17263,8 +17274,19 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     /* KEYED_FRAGMENT */
     )), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.threads.data, function (thread) {
       return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_thread_item, {
-        key: thread.id
-      });
+        key: thread.id,
+        user: thread.user,
+        title: thread.title,
+        slug: thread.slug,
+        created: new Date(thread.created_at).toLocaleDateString('en-US', {
+          weekday: 'long',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        })
+      }, null, 8
+      /* PROPS */
+      , ["user", "title", "slug", "created"]);
     }), 128
     /* KEYED_FRAGMENT */
     ))]);
@@ -17396,7 +17418,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   var _component_member = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("member");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_thread_title), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_counter), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_member)]);
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_thread_title, {
+    title: $setup.props.title,
+    user: $setup.props.user,
+    slug: $setup.props.slug,
+    created: $setup.props.created
+  }, null, 8
+  /* PROPS */
+  , ["title", "user", "slug", "created"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_counter), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_member)]);
 }
 
 /***/ }),

@@ -20,6 +20,8 @@ class CreateForumsTable extends Migration
             $table->string('slug')->unique();
             $table->string('image')->nullable();
             $table->string('description')->nullable();
+            $table->integer('threads_count');
+            $table->integer('posts_count');
             $table->softDeletes();
             $table->timestamps();
         });

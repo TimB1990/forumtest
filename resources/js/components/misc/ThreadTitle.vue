@@ -1,7 +1,7 @@
 <template>
     <div class="title-element">
-        <span class="title-element-topic">Thread Title</span>
-        <span class="title-element-created">By: test, October 10, 2020</span>
+        <span class="title-element-topic">{{ props.title }}</span>
+        <span class="title-element-created">By: {{ props.user }} | {{ props.created }}</span>
     </div>
 </template>
 
@@ -12,12 +12,19 @@ import { useStore } from "vuex";
 export default {
     name: "threadTitle",
 
+    props: {
+        user: String,
+        title: String,
+        slug: String,
+        created: Date,
+    },
+
     components: {},
-    setup() {
+    setup(props) {
         const store = useStore();
 
         return{
-            //
+            props
         }
     },
 };
