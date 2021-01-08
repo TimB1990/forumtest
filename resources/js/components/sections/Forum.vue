@@ -9,17 +9,12 @@
             <forum-item
                 v-for="child in forum.children"
                 :key="child.id"
-                :slug="child.slug"
-                :name="child.name"
-                :children="child.children"
+                :forum="child"
             />
             <thread-item
                 v-for="thread in threads.data"
                 :key="thread.id"
-                :user="thread.user"
-                :title="thread.title"
-                :slug="thread.slug"
-                :created="new Date(thread.created_at).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })"
+                :thread="thread"
             />
         </div>
     </div>

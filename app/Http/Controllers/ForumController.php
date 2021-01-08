@@ -14,6 +14,9 @@ class ForumController extends Controller
 
         $data = [];
 
+        $totalThreads = 0;
+        $totalPosts = 0;
+
         if($slug){
             $forums = Forum::where('slug', $slug)->get();
         }
@@ -27,6 +30,12 @@ class ForumController extends Controller
                 'name' => $forum->name,
                 'slug' => $forum->slug,
                 'image' => $forum->image,
+                'posts_count' => Forum::where('parent', $forum->id)->get()->reduce(function($carry, $forum){
+                    return $carry + $forum->posts_count;
+                }, 0),
+                'threads_count' => Forum::where('parent', $forum->id)->get()->reduce(function($carry, $forum){
+                    return $carry + $forum->threads_count;
+                }, 0),
                 'children' => Forum::where('parent', $forum->id)->get()
             ]);
         });

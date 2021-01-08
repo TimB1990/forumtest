@@ -1,7 +1,7 @@
 <template>
 <div class="counter">
-   <span class="counter-number">12345</span>
-   <span class="counter-subject">posts</span>
+   <span class="counter-number">{{ props.count }}</span>
+   <span class="counter-subject">{{ props.subject }}</span>
 </div>
 </template>
 
@@ -11,8 +11,24 @@ import { useStore } from 'vuex'
 
 export default {
    name: 'counter',
-   setup(){
+
+   props: {
+      count: {
+         type: Number,
+         default: 0
+      },
+      subject: {
+         type: String,
+         default: 'posts'
+      }
+   },
+
+   setup(props){
       const store = useStore();
+
+      return {
+         props
+      }
    }
 }
 </script>

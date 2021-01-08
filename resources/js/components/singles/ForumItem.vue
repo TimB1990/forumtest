@@ -1,12 +1,21 @@
 <template>
     <div class="item-container">
-        <detail :slug="props.slug" :name="props.name" :children="props.children" />
-        <counter />
+        <detail
+            :slug="props.forum.slug"
+            :name="props.forum.name"
+            :children="props.forum.children"
+        />
+        <div class="counters-wrapper">
+            <counter :count="props.forum.threads_count" :subject="'threads'" />
+            <counter :count="props.forum.posts_count" :subject="'posts'" />
+        </div>
         <div class="item-thread-wrapper">
             <thread />
         </div>
     </div>
 </template>
+
+<!-- <forum-item :slug="forum.slug" :name="forum.name" :children="forum.children" /> -->
 
 <script>
 import { onBeforeMount, computed, ref } from "vue";
@@ -19,19 +28,16 @@ export default {
     name: "forumItem",
 
     props: {
-        name: String,
-        slug: String,
-        children: Object,
+        forum: Object,
     },
 
     components: { Detail, Counter, Thread },
     setup(props) {
         const store = useStore();
 
-        return{
-           props
-        }
-
+        return {
+            props
+        };
     },
 };
 </script>
@@ -50,5 +56,9 @@ export default {
     grid-template-columns: 25% 1fr 25%;
     justify-content: space-between;
     column-gap: 1.5rem;
+}
+
+.counters-wrapper {
+    display: flex;
 }
 </style>

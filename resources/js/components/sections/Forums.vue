@@ -1,7 +1,7 @@
 <template>
     <div class="forums-container">
-        <div v-for="(forum, index) in forums" :key="index">
-            <forum-item :slug="forum.slug" :name="forum.name" :children="forum.children" />
+        <div>
+            <forum-item v-for="forum in forums" :key="forum.id" :forum="forum"/>
         </div>
     </div>
 </template>
@@ -10,6 +10,8 @@
 import { onBeforeMount, computed, ref } from "vue";
 import { useStore } from "vuex";
 import ForumItem from "../singles/ForumItem";
+
+// counts goes double why?
 
 export default {
     name: "Forums",

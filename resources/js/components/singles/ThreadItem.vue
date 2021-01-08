@@ -1,12 +1,12 @@
 <template>
     <div class="thread-item-container">
         <thread-title
-            :title="props.title"
-            :user="props.user"
-            :slug="props.slug"
-            :created="props.created"
+            :title="props.thread.title"
+            :user="props.thread.user"
+            :slug="props.thread.slug"
+            :created="props.thread.created_at"
         />
-        <counter />
+        <counter :count="props.thread.posts_count" :subject="'posts'" />
         <member />
     </div>
 </template>
@@ -22,10 +22,7 @@ export default {
     name: "threadItem",
 
     props: {
-        user: String,
-        title: String,
-        slug: String,
-        created: Date,
+        thread: Object
     },
 
     components: { Member, Counter, ThreadTitle },

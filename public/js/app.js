@@ -16415,8 +16415,21 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'counter',
-  setup: function setup() {
+  props: {
+    count: {
+      type: Number,
+      "default": 0
+    },
+    subject: {
+      type: String,
+      "default": 'posts'
+    }
+  },
+  setup: function setup(props) {
     var store = (0,vuex__WEBPACK_IMPORTED_MODULE_1__.useStore)();
+    return {
+      props: props
+    };
   }
 });
 
@@ -16666,6 +16679,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
+ // counts goes double why?
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Forums",
@@ -16748,9 +16762,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "forumItem",
   props: {
-    name: String,
-    slug: String,
-    children: Object
+    forum: Object
   },
   components: {
     Detail: _generic_Detail__WEBPACK_IMPORTED_MODULE_1__.default,
@@ -16791,10 +16803,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "threadItem",
   props: {
-    user: String,
-    title: String,
-    slug: String,
-    created: Date
+    thread: Object
   },
   components: {
     Member: _misc_Member__WEBPACK_IMPORTED_MODULE_2__.default,
@@ -17025,21 +17034,18 @@ __webpack_require__.r(__webpack_exports__);
 var _hoisted_1 = {
   "class": "counter"
 };
-
-var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", {
+var _hoisted_2 = {
   "class": "counter-number"
-}, "12345", -1
-/* HOISTED */
-);
-
-var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", {
+};
+var _hoisted_3 = {
   "class": "counter-subject"
-}, "posts", -1
-/* HOISTED */
-);
-
+};
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_1, [_hoisted_2, _hoisted_3]);
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.props.count), 1
+  /* TEXT */
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.props.subject), 1
+  /* TEXT */
+  )]);
 }
 
 /***/ }),
@@ -17264,29 +17270,19 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     ), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(forum.children, function (child) {
       return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_forum_item, {
         key: child.id,
-        slug: child.slug,
-        name: child.name,
-        children: child.children
+        forum: child
       }, null, 8
       /* PROPS */
-      , ["slug", "name", "children"]);
+      , ["forum"]);
     }), 128
     /* KEYED_FRAGMENT */
     )), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.threads.data, function (thread) {
       return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_thread_item, {
         key: thread.id,
-        user: thread.user,
-        title: thread.title,
-        slug: thread.slug,
-        created: new Date(thread.created_at).toLocaleDateString('en-US', {
-          weekday: 'long',
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric'
-        })
+        thread: thread
       }, null, 8
       /* PROPS */
-      , ["user", "title", "slug", "created"]);
+      , ["thread"]);
     }), 128
     /* KEYED_FRAGMENT */
     ))]);
@@ -17316,19 +17312,16 @@ var _hoisted_1 = {
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_forum_item = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("forum-item");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_1, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.forums, function (forum, index) {
-    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", {
-      key: index
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_forum_item, {
-      slug: forum.slug,
-      name: forum.name,
-      children: forum.children
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.forums, function (forum) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_forum_item, {
+      key: forum.id,
+      forum: forum
     }, null, 8
     /* PROPS */
-    , ["slug", "name", "children"])]);
+    , ["forum"]);
   }), 128
   /* KEYED_FRAGMENT */
-  ))]);
+  ))])]);
 }
 
 /***/ }),
@@ -17375,6 +17368,9 @@ var _hoisted_1 = {
   "class": "item-container"
 };
 var _hoisted_2 = {
+  "class": "counters-wrapper"
+};
+var _hoisted_3 = {
   "class": "item-thread-wrapper"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -17385,12 +17381,22 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_thread = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("thread");
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_detail, {
-    slug: $setup.props.slug,
-    name: $setup.props.name,
-    children: $setup.props.children
+    slug: $setup.props.forum.slug,
+    name: $setup.props.forum.name,
+    children: $setup.props.forum.children
   }, null, 8
   /* PROPS */
-  , ["slug", "name", "children"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_counter), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_thread)])]);
+  , ["slug", "name", "children"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_counter, {
+    count: $setup.props.forum.threads_count,
+    subject: 'threads'
+  }, null, 8
+  /* PROPS */
+  , ["count"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_counter, {
+    count: $setup.props.forum.posts_count,
+    subject: 'posts'
+  }, null, 8
+  /* PROPS */
+  , ["count"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_thread)])]);
 }
 
 /***/ }),
@@ -17419,13 +17425,18 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_member = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("member");
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_thread_title, {
-    title: $setup.props.title,
-    user: $setup.props.user,
-    slug: $setup.props.slug,
-    created: $setup.props.created
+    title: $setup.props.thread.title,
+    user: $setup.props.thread.user,
+    slug: $setup.props.thread.slug,
+    created: $setup.props.thread.created_at
   }, null, 8
   /* PROPS */
-  , ["title", "user", "slug", "created"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_counter), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_member)]);
+  , ["title", "user", "slug", "created"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_counter, {
+    count: $setup.props.thread.posts_count,
+    subject: 'posts'
+  }, null, 8
+  /* PROPS */
+  , ["count"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_member)]);
 }
 
 /***/ }),
@@ -18113,7 +18124,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.item-thread-wrapper {\n    grid-row: 1/-1;\n    grid-column: 3/-1;\n    align-items: center;\n    border: 1px solid grey;\n}\n.item-container {\n    display: grid;\n    grid-template-rows: 1fr;\n    grid-template-columns: 25% 1fr 25%;\n    justify-content: space-between;\n    -moz-column-gap: 1.5rem;\n         column-gap: 1.5rem;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.item-thread-wrapper {\n    grid-row: 1/-1;\n    grid-column: 3/-1;\n    align-items: center;\n    border: 1px solid grey;\n}\n.item-container {\n    display: grid;\n    grid-template-rows: 1fr;\n    grid-template-columns: 25% 1fr 25%;\n    justify-content: space-between;\n    -moz-column-gap: 1.5rem;\n         column-gap: 1.5rem;\n}\n.counters-wrapper {\n    display: flex;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
