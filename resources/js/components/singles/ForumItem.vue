@@ -1,18 +1,18 @@
 <template>
-    <div class="item-container">
-        <detail
-            :slug="props.forum.slug"
-            :name="props.forum.name"
-            :children="props.forum.children"
-        />
-        <div class="counters-wrapper">
-            <counter :count="props.forum.threads_count" :subject="'threads'" />
-            <counter :count="props.forum.posts_count" :subject="'posts'" />
-        </div>
-        <div class="item-thread-wrapper">
-            <thread />
-        </div>
+  <div class="item-container">
+    <detail
+      :slug="props.forum.slug"
+      :name="props.forum.name"
+      :children="props.forum.children"
+    />
+    <div class="counters-wrapper">
+      <counter :count="props.forum.threads_count" :subject="'threads'" />
+      <counter :count="props.forum.posts_count" :subject="'posts'" />
     </div>
+    <div class="item-thread-wrapper">
+      <thread :forumId="props.forum.id" />
+    </div>
+  </div>
 </template>
 
 <!-- <forum-item :slug="forum.slug" :name="forum.name" :children="forum.children" /> -->
@@ -25,40 +25,40 @@ import Counter from "../generic/Counter";
 import Thread from "../generic/Thread";
 
 export default {
-    name: "forumItem",
+  name: "forumItem",
 
-    props: {
-        forum: Object,
-    },
+  props: {
+    forum: Object,
+  },
 
-    components: { Detail, Counter, Thread },
-    setup(props) {
-        const store = useStore();
+  components: { Detail, Counter, Thread },
+  setup(props) {
+    const store = useStore();
 
-        return {
-            props
-        };
-    },
+    return {
+      props,
+    };
+  },
 };
 </script>
 
 <style>
 .item-thread-wrapper {
-    grid-row: 1/-1;
-    grid-column: 3/-1;
-    align-items: center;
-    border: 1px solid grey;
+  grid-row: 1/-1;
+  grid-column: 3/-1;
+  align-items: center;
+  border: 1px solid grey;
 }
 
 .item-container {
-    display: grid;
-    grid-template-rows: 1fr;
-    grid-template-columns: 25% 1fr 25%;
-    justify-content: space-between;
-    column-gap: 1.5rem;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 25% 1fr 25%;
+  justify-content: space-between;
+  column-gap: 1.5rem;
 }
 
 .counters-wrapper {
-    display: flex;
+  display: flex;
 }
 </style>

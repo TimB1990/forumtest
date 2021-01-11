@@ -16483,13 +16483,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.mjs");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.mjs");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'thread',
-  setup: function setup() {
-    var store = (0,vuex__WEBPACK_IMPORTED_MODULE_1__.useStore)();
+  name: "thread",
+  props: {
+    forumId: Number
+  },
+  setup: function setup(props) {
+    var store = (0,vuex__WEBPACK_IMPORTED_MODULE_2__.useStore)();
+    var lastThread = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)({});
+    (0,vue__WEBPACK_IMPORTED_MODULE_0__.onBeforeMount)(function () {
+      var response = axios__WEBPACK_IMPORTED_MODULE_1___default().get("/api/threads/latest?forum=".concat(props.forumId)).then(function (resp) {
+        lastThread.value = resp.data;
+      })["catch"](function (err) {
+        console.log(err.response.data.message);
+      });
+    });
+    return {
+      props: props,
+      lastThread: lastThread
+    };
   }
 });
 
@@ -17154,10 +17172,32 @@ var _hoisted_1 = {
   "class": "thread"
 };
 
-var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"thread-image\"><span>T</span></div><div class=\"thread-info\"><span class=\"thread-info-title\">Lorem ipsum dolor si amet</span><span class=\"thread-info-author\">Test</span><span class=\"thread-info-date\">December 31</span></div>", 2);
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", {
+  "class": "thread-image"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", null, "T")], -1
+/* HOISTED */
+);
 
+var _hoisted_3 = {
+  "class": "thread-info"
+};
+var _hoisted_4 = {
+  "class": "thread-info-title"
+};
+var _hoisted_5 = {
+  "class": "thread-info-author"
+};
+var _hoisted_6 = {
+  "class": "thread-info-date"
+};
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_1, [_hoisted_2]);
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.lastThread.title), 1
+  /* TEXT */
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", _hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.lastThread.user), 1
+  /* TEXT */
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", _hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.lastThread.created_at), 1
+  /* TEXT */
+  )])]);
 }
 
 /***/ }),
@@ -17396,7 +17436,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     subject: 'posts'
   }, null, 8
   /* PROPS */
-  , ["count"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_thread)])]);
+  , ["count"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_thread, {
+    forumId: $setup.props.forum.id
+  }, null, 8
+  /* PROPS */
+  , ["forumId"])])]);
 }
 
 /***/ }),
@@ -18004,7 +18048,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.thread{\n      display: flex;\n      height: 100%;\n}\n.thread-image{\n      display: flex;\n      justify-content: center;\n      align-items: center;\n      background-color: lightgrey;\n      width: 6.4rem;\n      height: 100%;\n      font-size: 4rem;\n}\n.thread-info{\n      display: flex;\n      flex-direction: column;\n      font-size: 1.5rem;\n      padding: 1rem;\n}\n.thread-info-title{\n      font-weight: bold;\n}\n.thread-info-author{\n}\n.thread-info-date{\n}\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.thread {\n  display: flex;\n  height: 100%;\n}\n.thread-image {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  background-color: lightgrey;\n  width: 6.4rem;\n  height: 100%;\n  font-size: 4rem;\n}\n.thread-info {\n  display: flex;\n  flex-direction: column;\n  font-size: 1.5rem;\n  padding: 1rem;\n}\n.thread-info-title {\n  font-weight: bold;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  width: 30rem;\n  display: block;\n  overflow: hidden;\n}\n.thread-info-author {\n}\n.thread-info-date {\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -18124,7 +18168,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.item-thread-wrapper {\n    grid-row: 1/-1;\n    grid-column: 3/-1;\n    align-items: center;\n    border: 1px solid grey;\n}\n.item-container {\n    display: grid;\n    grid-template-rows: 1fr;\n    grid-template-columns: 25% 1fr 25%;\n    justify-content: space-between;\n    -moz-column-gap: 1.5rem;\n         column-gap: 1.5rem;\n}\n.counters-wrapper {\n    display: flex;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.item-thread-wrapper {\n  grid-row: 1/-1;\n  grid-column: 3/-1;\n  align-items: center;\n  border: 1px solid grey;\n}\n.item-container {\n  display: grid;\n  grid-template-rows: 1fr;\n  grid-template-columns: 25% 1fr 25%;\n  justify-content: space-between;\n  -moz-column-gap: 1.5rem;\n       column-gap: 1.5rem;\n}\n.counters-wrapper {\n  display: flex;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

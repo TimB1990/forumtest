@@ -16,6 +16,7 @@ class CreatePostsTable extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->contrained()->index();
+            $table->string('user');
             $table->foreignId('thread_id')->constrained()->index();
             $table->foreignId('forum_id')->constrained();
             $table->integer('parent_id')->index()->default(0);

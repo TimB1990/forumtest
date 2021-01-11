@@ -19,16 +19,17 @@ Route::post('auth/login', [UserController::class, 'login']);
 Route::post('auth/register', [UserController::class, 'register']);
 Route::post('auth/logout', [UserController::class, 'logout']);
 
-// model routes - index - public
+
 Route::get('api/categories', [CategoryController::class, 'index']);
 Route::get('api/forums', [ForumController::class, 'index']);
 Route::get('api/threads', [ThreadController::class, 'index']);
+Route::get('api/threads/latest', [ThreadController::class, 'latest']);
 Route::get('api/posts', [PostController::class, 'index']);
+Route::get('api/posts/latest', [PostController::class, 'latest']);
 Route::get('api/moderators', [ModeratorController::class, 'index']);
 Route::get('api/tags', [TagController::class, 'index']);
 Route::get('api/users', [UserController::class, 'index']);
 
-// model routes - show - public
 // Route::get('api/forums/:slug', [ForumController::class, 'show']);
 Route::get('api/threads/:slug', [ThreadController::class, 'show']);
 Route::get('api/users/:id', [UserController::class, 'show']);
@@ -67,7 +68,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::delete('api/posts/:id', [PostController::class, 'destroy']);
     Route::delete('api/moderators/:id', [ModeratorController::class, 'destroy']);
     Route::delete('api/tags/:id', [TagController::class, 'destroy']);
-    Route::delete('api/users/:id', [UserController::class, 'destory']);
+    Route::delete('api/users/:id', [UserController::class, 'destroy']);
 
 });
 

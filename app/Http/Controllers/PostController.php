@@ -12,6 +12,12 @@ class PostController extends Controller
         //
     }
 
+    public function latest(Request $request){
+        $thread_id = $request->query('thread');
+        return Post::where('thread_id', $thread_id)->orderBy('created_at', 'desc')->first();
+
+    }
+
     public function store(Request $request)
     {
         //
