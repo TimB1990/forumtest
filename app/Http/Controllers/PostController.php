@@ -3,13 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Thread;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if(!$request->query('topic')) return response()->json(Post::paginate(20));
+        return Thread::where('slug', $request->query('topic'))->first()->posts;
     }
 
     public function latest(Request $request){

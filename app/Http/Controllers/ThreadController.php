@@ -11,29 +11,30 @@ class ThreadController extends Controller
 {
     public function index(Request $request)
     {
-        if(!$request->query('forum')) return response()->json(Thread::paginate(20));
+        if (!$request->query('forum')) return response()->json(Thread::paginate(20));
 
         $threads = Thread::where('forum_id', $request->query('forum'))->paginate(20);
         return response()->json($threads);
-
     }
 
-    public function latest(Request $request){
+    public function latest(Request $request)
+    {
 
         $forum_id = $request->query('forum');
+
         $forum = Forum::find($forum_id);
 
-        if($forum->threads->count()){
+        if(!$forum) return;
+
+        if($forum->threads->count()) {
             return $forum->threads->last();
-        }
-        else{
-            $subforums = Forum::where('parent', $forum_id)->get()->map(function($sub){
+        } else {
+            $subforums = Forum::where('parent', $forum_id)->get()->map(function ($sub) {
                 return $sub->threads->last()->id;
             });
 
             return Thread::find($subforums->max());
         }
-
     }
 
     public function store(Request $request)

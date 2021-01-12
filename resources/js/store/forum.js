@@ -5,7 +5,8 @@ export const forum = {
     namespaced: true,
     state: {
         forums: [],
-        threads: {}
+        threads: {},
+        posts: []
     },
     getters: {
         forums(state){
@@ -14,6 +15,10 @@ export const forum = {
 
         threads(state){
             return state.threads
+        },
+
+        posts(state){
+            return state.posts
         }
     },
 
@@ -26,12 +31,20 @@ export const forum = {
             state.threads = payload
         },
 
+        SET_POSTS(state,payload){
+            state.posts = payload
+        },
+
         CLEAR_FORUMS(state){
             state.forums = null
         },
 
         CLEAR_THREADS(state){
             state.threads = null
+        },
+
+        CLEAR_POSTS(state){
+            state.posts = null
         }
     },
 
@@ -42,6 +55,10 @@ export const forum = {
 
         clearThreads({commit}){
             commit('CLEAR_THREADS')
+        },
+
+        clearPosts({commit}){
+            commit('CLEAR_POSTS')
         },
 
         async fetchForums({commit, dispatch }, parentSlug){
@@ -75,12 +92,29 @@ export const forum = {
 
                 const {data} = await axios.get(url)
 
-                commit('SET_THREADS', data)         
+                commit('SET_THREADS', data)
+
             }
             catch(error){
                 console.log(error.response.data.error)
             }
 
+        },
+
+        async fetchPosts({commit}, {page, threadSlug}){
+            try{
+                let postPage = page && !page==0 ? page: 1
+                let url = threadSlug ? `/api/posts?page=${postPage}&topic=${threadSlug}` : '/api/posts'
+
+                const { data } = await axios.get(url)
+
+                if(!data.length > 0) return
+
+                commit('SET_POSTS', data)
+            }
+            catch(error){
+                console.log(error.response.data.error)
+            }
         }
     }
 }
