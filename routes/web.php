@@ -32,7 +32,7 @@ Route::get('api/users', [UserController::class, 'index']);
 
 // Route::get('api/forums/:slug', [ForumController::class, 'show']);
 Route::get('api/threads/:slug', [ThreadController::class, 'show']);
-Route::get('api/users/:id', [UserController::class, 'show']);
+Route::get('api/users/{id}', [UserController::class, 'showById']);
 
 Route::middleware('auth:sanctum')->group(function(){
 
@@ -47,28 +47,28 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('api/tags', [TagController::class, 'store']);
 
     // api - update requests
-    Route::put('api/forums/:id', [ForumController::class, 'update']);
-    Route::put('api/threads/:id', [ThreadController::class, 'update']);
-    Route::put('api/posts/:id', [PostController::class, 'update']);
-    Route::put('api/moderators/:id', [ModeratorController::class, 'update']);
-    Route::put('api/tags/:id', [TagController::class, 'update']);
-    Route::put('api/users/:id', [UserController::class, 'update']);
+    Route::put('api/forums/{id}', [ForumController::class, 'update']);
+    Route::put('api/threads/{id}', [ThreadController::class, 'update']);
+    Route::put('api/posts/{id}', [PostController::class, 'update']);
+    Route::put('api/moderators/{id}', [ModeratorController::class, 'update']);
+    Route::put('api/tags/{id}', [TagController::class, 'update']);
+    Route::put('api/users/{id}', [UserController::class, 'update']);
 
     // api - (soft) delete requests
-    Route::patch('api/forums/:id', [ForumController::class, 'delete']);
-    Route::patch('api/threads/:id', [ThreadController::class, 'delete']);
-    Route::patch('api/posts/:id', [PostController::class, 'delete']);
-    Route::patch('api/moderators/:id', [ModeratorController::class, 'delete']);
-    Route::patch('api/tags/:id', [TagController::class, 'delete']);
-    Route::patch('api/users/:id', [UserController::class, 'delete']);
+    Route::patch('api/forums/{id}', [ForumController::class, 'delete']);
+    Route::patch('api/threads/{id}', [ThreadController::class, 'delete']);
+    Route::patch('api/posts/{id}', [PostController::class, 'delete']);
+    Route::patch('api/moderators/{id}', [ModeratorController::class, 'delete']);
+    Route::patch('api/tags/{id}', [TagController::class, 'delete']);
+    Route::patch('api/users/{id}', [UserController::class, 'delete']);
 
     // api - destory requests
-    Route::delete('api/forums/:id', [ForumController::class, 'destroy']);
-    Route::delete('api/threads/:id', [ThreadController::class, 'destroy']);
-    Route::delete('api/posts/:id', [PostController::class, 'destroy']);
-    Route::delete('api/moderators/:id', [ModeratorController::class, 'destroy']);
-    Route::delete('api/tags/:id', [TagController::class, 'destroy']);
-    Route::delete('api/users/:id', [UserController::class, 'destroy']);
+    Route::delete('api/forums/{id}', [ForumController::class, 'destroy']);
+    Route::delete('api/threads/{id}', [ThreadController::class, 'destroy']);
+    Route::delete('api/posts/{id}', [PostController::class, 'destroy']);
+    Route::delete('api/moderators/{id}', [ModeratorController::class, 'destroy']);
+    Route::delete('api/tags/{id}', [TagController::class, 'destroy']);
+    Route::delete('api/users/{id}', [UserController::class, 'destroy']);
 
 });
 

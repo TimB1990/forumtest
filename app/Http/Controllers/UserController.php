@@ -55,6 +55,21 @@ class UserController extends Controller
         return response()->json($user);
     }
 
+    public function showById($id){
+
+        $user = User::find($id);
+
+        $userData = [
+            'name' => $user->name,
+            'rank' => $user->rank,
+            'image' => $user->image,
+            'role' => $user->role,
+            'post_count' => $user->posts->count()
+        ];
+
+        return response()->json($userData);
+    }
+
     public function update(Request $request, User $user)
     {
         //

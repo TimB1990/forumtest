@@ -3,18 +3,23 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
+use Bezhanov\Faker\ProviderCollectionHelper;
 
 class UserSeeder extends Seeder
 {
 
     public function run()
     {
+        $faker = Faker::create();
+        $faker->addProvider(new \Bezhanov\Faker\Provider\Avatar($faker));
+        
         User::create([
             'name' => 'admin',
             'email' => 'admin@test.com',
             'password' => bcrypt('admin'),
-            'image' => 'image',
+            'image' => $faker->imageUrl(640, 480),
             'role' => 'admin',
             'rank' => 1,
             'active' => true
@@ -24,7 +29,7 @@ class UserSeeder extends Seeder
             'name' => 'moderator',
             'email' => 'morderator@test.com',
             'password' => bcrypt('moderator'),
-            'image' => 'image',
+            'image' => $faker->imageUrl(640, 480),
             'role' => 'moderator',
             'rank' => 1,
             'active' => true
@@ -34,7 +39,7 @@ class UserSeeder extends Seeder
             'name' => 'member',
             'email' => 'member@test.com',
             'password' => bcrypt('member'),
-            'image' => 'image',
+            'image' => $faker->imageUrl(640, 480),
             'role' => 'member',
             'rank' => 1,
             'active' => true
