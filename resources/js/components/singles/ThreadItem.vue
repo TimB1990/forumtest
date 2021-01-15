@@ -1,13 +1,8 @@
 <template>
     <div class="thread-item-container">
-        <thread-title
-            :title="props.thread.title"
-            :user="props.thread.user"
-            :slug="props.thread.slug"
-            :created="props.thread.created_at"
-        />
+        <thread-title :thread="props.thread" />
         <counter :count="props.thread.posts_count" :subject="'posts'" />
-        <member />
+        <last-post :threadId="props.thread.id"/>
     </div>
 </template>
 
@@ -15,8 +10,8 @@
 import { onBeforeMount, computed, ref } from "vue";
 import { useStore } from "vuex";
 import Counter from "../generic/Counter";
-import Member from "../misc/Member";
 import ThreadTitle from "../misc/ThreadTitle";
+import LastPost from "../misc/LastPost";
 
 export default {
     name: "threadItem",
@@ -25,7 +20,7 @@ export default {
         thread: Object
     },
 
-    components: { Member, Counter, ThreadTitle },
+    components: { ThreadTitle, Counter, LastPost },
     setup(props) {
         const store = useStore();
 
@@ -40,7 +35,7 @@ export default {
 .thread-item-container {
     display: grid;
     grid-template-rows: 1fr;
-    grid-template-columns: 1fr 25% 15%;
+    grid-template-columns: 30% 1fr 20%;
     justify-content: space-between;
     column-gap: 1.5rem;
 }

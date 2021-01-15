@@ -7,7 +7,6 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\ThreadController;
-use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ModeratorController;
 
 Route::get('/', function () {
@@ -19,16 +18,21 @@ Route::post('auth/login', [UserController::class, 'login']);
 Route::post('auth/register', [UserController::class, 'register']);
 Route::post('auth/logout', [UserController::class, 'logout']);
 
-
-Route::get('api/categories', [CategoryController::class, 'index']);
 Route::get('api/forums', [ForumController::class, 'index']);
+
 Route::get('api/threads', [ThreadController::class, 'index']);
+Route::get('api/threads/count', [ThreadController::class, 'count']);
+
 Route::get('api/threads/latest', [ThreadController::class, 'latest']);
 Route::get('api/posts', [PostController::class, 'index']);
+Route::get('api/posts/count', [PostController::class, 'count']);
 Route::get('api/posts/latest', [PostController::class, 'latest']);
 Route::get('api/moderators', [ModeratorController::class, 'index']);
 Route::get('api/tags', [TagController::class, 'index']);
+
 Route::get('api/users', [UserController::class, 'index']);
+Route::get('api/users/count', [UserController::class, 'count']);
+Route::get('api/users/latest', [UserController::class, 'latest']);
 
 // Route::get('api/forums/:slug', [ForumController::class, 'show']);
 Route::get('api/threads/:slug', [ThreadController::class, 'show']);

@@ -16,8 +16,11 @@ class PostController extends Controller
 
     public function latest(Request $request){
         $thread_id = $request->query('thread');
-        return Post::where('thread_id', $thread_id)->orderBy('created_at', 'desc')->first();
+        return Thread::find($thread_id)->posts->last();
+    }
 
+    public function count(){
+        return Post::all()->count();
     }
 
     public function store(Request $request)

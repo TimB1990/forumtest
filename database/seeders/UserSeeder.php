@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
             'password' => bcrypt('admin'),
             'image' => $faker->imageUrl(640, 480),
             'role' => 'admin',
-            'rank' => 1,
+            'rank' => 3,
             'active' => true
         ]);
 
@@ -31,7 +31,7 @@ class UserSeeder extends Seeder
             'password' => bcrypt('moderator'),
             'image' => $faker->imageUrl(640, 480),
             'role' => 'moderator',
-            'rank' => 1,
+            'rank' => 2,
             'active' => true
         ]);
 

@@ -1,16 +1,16 @@
 <template>
   <div class="post-item-wrapper">
     <div class="post-item-user">
-      <span>{{ user.name }}</span>
-      <span>{{ user.rank }}</span>
+      <span class="user-name">{{ user.name }}</span>
+      <span class="user-stars"><i v-for="index in user.rank" :key="index" class="fas fa-star"></i></span>
       <img :src="user.image" alt="" />
-      <span>{{ user.role }}</span>
-      <span>{{ user.post_count }}</span>
+      <span class="user-role">{{ user.role }}</span>
+      <span class="user-posts">posts: {{ user.post_count }}</span>
     </div>
     <div class="post-item-content">
       <span class="post-item-created">{{ post.created_at }}</span>
       <span class="post-item-message">{{ post.message }}</span>
-      <button>Reply</button>
+      <div class="post-reply-wrapper"><button><i class="fas fa-plus"></i></button><span>Reply</span></div>
     </div>
   </div>
 </template>
@@ -58,14 +58,14 @@ export default {
   border: 1px solid grey;
   border-radius: 0.2rem;
   width: 80%;
-  margin: 1rem;
   padding: 2rem;
+  margin: 1.5rem;
 }
 
 .post-item-user {
   display: flex;
   flex-direction: column;
-  width: 15%;
+  align-items: center;
   font-size: 1.5rem;
   padding: 1rem;
 }
@@ -73,15 +73,15 @@ export default {
 .post-item-user > img{
     height: 90px;
     width: 90px;
-    margin: 1rem;
     margin-left: 0;
+    margin: 1rem;
 }
 
 .post-item-content {
   display: flex;
   flex-direction: column;
-  width: 85%;
-  font-size: 1.5rem;
+  justify-content: space-between;
+  font-size: 1.6rem;
 }
 
 .post-item-message {
@@ -90,6 +90,27 @@ export default {
 
 .post-item-created {
   padding: 1rem;
+}
+
+.user-name{
+  padding: 0.5rem;
+  font-size: 1.75rem;
+  font-weight: bold;
+}
+
+.post-reply-wrapper{
+  padding: 1rem;
+}
+
+.post-reply-wrapper > button {
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  font-size: 1.0rem;
+  cursor: pointer;
+}
+
+.post-reply-wrapper > span {
+  margin: 1rem;
+  letter-spacing: 1px;
 }
 
 </style>

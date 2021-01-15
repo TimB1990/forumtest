@@ -1,6 +1,6 @@
 <template>
   <div class="thread">
-    <div class="thread-image"><span>T</span></div>
+    <div class="thread-image"><img :src="user.image" alt="" /></div>
     <div class="thread-info">
       <span class="thread-info-title">{{ lastThread.title }}</span>
       <span class="thread-info-author">{{ lastThread.user }}</span>
@@ -25,12 +25,18 @@ export default {
     const store = useStore();
 
     let lastThread = ref({});
+    let user = ref({});
 
     onBeforeMount(() => {
-      let response = axios
+      axios
         .get(`/api/threads/latest?forum=${props.forumId}`)
         .then((resp) => {
           lastThread.value = resp.data;
+          if (resp.data) {
+            axios.get(`/api/users/${resp.data.user_id}`).then((usr) => {
+              user.value = usr.data;
+            });
+          }
         })
         .catch((err) => {
           console.log(err.response.data.message);
@@ -40,6 +46,7 @@ export default {
     return {
       props,
       lastThread,
+      user,
     };
   },
 };
@@ -57,8 +64,11 @@ export default {
   align-items: center;
   background-color: lightgrey;
   width: 6.4rem;
+}
+
+.thread-image > img {
+  width: 100%;
   height: 100%;
-  font-size: 4rem;
 }
 
 .thread-info {

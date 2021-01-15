@@ -50,7 +50,6 @@ class UserController extends Controller
 
     public function show(Request $request)
     {
-        // TODO: change to retrieving user by token, review next to auth.js - me function
         $user = $request->user();
         return response()->json($user);
     }
@@ -68,6 +67,14 @@ class UserController extends Controller
         ];
 
         return response()->json($userData);
+    }
+
+    public function count(){
+        return User::all()->count();
+    }
+
+    public function latest(){
+        return User::all()->last()->only(['name', 'image', 'created_at']);
     }
 
     public function update(Request $request, User $user)

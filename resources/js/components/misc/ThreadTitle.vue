@@ -1,12 +1,12 @@
 <template>
   <div class="title-element">
     <span class="title-element-topic"
-      ><router-link :to="{ name: 'topic', params: { slug: props.slug } }">{{
-        props.title
+      ><router-link :to="{ name: 'topic', params: { slug: props.thread.slug } }">{{
+        props.thread.title
       }}</router-link></span
     >
     <span class="title-element-created"
-      >By: {{ props.user }} | {{ props.created }}</span
+      >By: {{ props.thread.user }} | {{ props.thread.created_at }}</span
     >
   </div>
 </template>
@@ -19,10 +19,7 @@ export default {
   name: "threadTitle",
 
   props: {
-    user: String,
-    title: String,
-    slug: String,
-    created: Date,
+    thread: Object
   },
 
   components: {},

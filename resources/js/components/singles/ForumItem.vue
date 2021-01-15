@@ -15,8 +15,6 @@
   </div>
 </template>
 
-<!-- <forum-item :slug="forum.slug" :name="forum.name" :children="forum.children" /> -->
-
 <script>
 import { onBeforeMount, computed, ref } from "vue";
 import { useStore } from "vuex";
